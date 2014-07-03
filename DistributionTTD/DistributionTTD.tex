@@ -1,0 +1,128 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{tikz}
+%\usepackage[active,tightpage]{preview}
+\usepackage{natbib}
+\bibpunct{(}{)}{,}{a}{}{;} 
+\usepackage{url}
+\usepackage{nth}
+% for the d in integrals
+\newcommand{\dd}{\; \mathrm{d}}
+\newcommand{\tc}{\quad\quad\text{,}}
+\newcommand{\tp}{\quad\quad\text{.}}
+
+\begin{document}
+
+\title{Distributional aspects of time to death in human populations}
+\author{Tim Riffe}
+\maketitle
+
+\section{Background}
+
+Typically demographers are satisfied to summarize the remaining lifetime for age
+groups using a mean, $e(a)$, which is however not an omnibus descriptor of time
+to death. Other measures are known to be useful measures of longevity, such as
+the modal age at death or the median, and demographers also have a battery of
+indicators for lifespan variability or entropy. One aspect in common of all
+these indicators except for remaining life expectancy is that they refer to the
+age distribution of mortality in a snapshot of a stationary population or else
+the age at death distribution of a newborn cohort under constant mortality
+conditions. These measures are not typically made conditional on survival to
+later ages, i.e., demographers too seldom consider the properties of the
+distribution of remaining lifetime given survival to a particular age. All of
+the above measures can be reworked as functions of remaining lifetime (i.e. the
+modal remaining lifespan), and indeed we may fruitfully define some standard
+statistical descriptors of shape to the distribution of remaining lifespans. In
+this paper, we aim to provide some elementary definitions and apply these to
+human populations. As an example of utility of this perspective we offer a
+selection of simple heuristics for late life decisions based on these
+distributional measures.
+
+\section{Definitions}
+
+Remaining life expectancy conditional on survial to age $a$ is defined as
+\begin{equation}
+e(a) = \frac{\int_{y=0}^\infty l(a+y) \dd y}{l(a)} \tp
+\end{equation}
+
+Say lifespans for a given birth cohort are measured with the random variable,
+$X$, with distribution $d(X)$, which is identical to the $d_x$
+column of the lifetable if a radix of 1 is used. In othe words, the
+distribution of lifespans for newborns is identical to the distribution of
+age at death in the stationary population. We are interested in $f(X-a ~|~ X \ge
+a)$, which we denote using $f(y|a)$, and which is defined as:
+\begin{equation}
+\label{eq:fya}
+f(y|a) = \mu(a+y) \frac{l(a+y)}{l(a)} \tc
+\end{equation}
+i.e., the probability of surviving to and dying at age $a+y$ given survival to
+age $a$. \eqref{eq:fya} can also be used to calculate remaining life expectancy:
+\begin{equation}
+e(a) = \int _{y=0}^\infty y f(y|a) \dd y \tp
+\end{equation}
+
+Demographers make less frequent
+reference to $f(y|a)$, which is however useful for decomposing
+demographic counts into remaining lifetime classes. The empirical distribution
+of $f(y|a)$ is a worthy topic of study, as it bears heavily on many late-life
+decisions, such as bequesting or moving into a care residence, and possibly also
+on the ethical pondering of public policies, such as mandatory retirement ages
+or pensions. The conditional distribution of remaining lifetimes can be
+described empirically, or more parsimoniously using the standard tools of 
+statistics (central moments) used to describe distributions: the variance,
+skewness and kurtosis.
+
+The $n^{th}$ momet of $f(y|a)$, $\eta_n(y|a)$ is defined as: 
+\begin{align}
+\eta _n(y|a) =& \frac{1}{l(a)} \int_{y=0}^\infty (y-e(a))^n \mu (a+y) l(a+y) \dd
+y 
+\intertext{or just}
+\eta _n(y|a) =&  \int_{y=0}^\infty (y-e(a))^n f(y|a) \dd y \tc
+\end{align}
+where $n=2$ gives the variance, $\sigma^2(y|a)$, $n=3$ gives the skewness and
+$n=4$ gives the kurtosis. 
+
+The coefficient of variation of remaining lifespan, $CV(y|a)$ is then simply
+\begin{equation}
+CV(y|a) = \frac{\sqrt{\sigma^2(y|a)}}{e(a)}
+\end{equation}
+
+\noindent $CV(y|a)$ is dimensionless and comparable over age, and its reciprocal
+can be thought of as a signal to noise ratio of one's likely remaining lifespan,
+assuming a constant mortality pattern in ages higher than $a$.
+
+\section{Observed patterns}
+The above definitions are perhaps too clean to be analytically useful outside
+of idealized parametric mortality settings. We wish to examine some patterns
+of these distributional properties. For instance, is there a crossover age in
+skewness, how does this vary over time and between populations?
+
+Likewise, what is the age where the variance in remaining lifespan hits it's
+minimum, and how stable is this age over time and between populations?
+
+\section{Heuristics}
+Ceteris paribus (i.e., in a homogenous population and where investment
+specifics do not play in), negative skewness suggests that we buy an (actuarily
+fair) annuity and positive skewness implies that the odds of us surviving to get 
+the money back are less than unity?
+
+What would the ethicist say about the just span of retirement? The variance of
+time to death is not monotonic, but instead decreases until some late age and
+then increases again. Could a just age of mandatory retirement be the age where
+the variance in remaining lifespan is at a minimum? To equalize the duration of
+retirement between individuals is at first glance a step toward equality, but
+there is no anecessary or best way to determine this duration, and there is also
+no necessary way to adjust this duration as a function of lifespan itself. In
+other words, if the desired duration of retirement is 20 years, perhaps the
+meaning of 20 years is greater for an individual with a shorter lifespan and
+lesser for a longer total lifespan.
+
+Can the age of minimum variance be used as another sort of demographic threshold
+for ageing or dependency?
+
+
+\end{document}
