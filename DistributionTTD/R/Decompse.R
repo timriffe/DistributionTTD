@@ -5,9 +5,11 @@ library(DecompHoriuchi)
 library(LexisUtils)
 library(DemogBerkeley)
 
-source("/home/triffe/workspace/VarianceTTD/R/Functions.R")
-source("/home/triffe/workspace/VarianceTTD/R/getvx.R")
-source("/home/triffe/workspace/VarianceTTD/R/mx2vx.R")
+setwd("/home/triffe/git/DistributionTTD/DistributionTTD")
+
+source("R/Functions.R")
+source("R/getvx.R")
+source("R/mx2vx.R")
 vxdecomp <- function(mx,x=50){
     sqrt(mx2vx(mx)[x+1])
 }

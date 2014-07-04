@@ -148,3 +148,5 @@ mx2lxHMD <- compiler::cmpfun(function(mx, sex = "m"){
 dx2lx <- function(dx){
     rev(cumsum(rev(dx))) / sum(dx)
 }
+
+

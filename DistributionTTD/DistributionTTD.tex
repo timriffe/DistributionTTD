@@ -33,9 +33,9 @@ age distribution of mortality in a snapshot of a stationary population or else
 the age at death distribution of a newborn cohort under constant mortality
 conditions. These measures are not typically made conditional on survival to
 later ages, i.e., demographers too seldom consider the properties of the
-distribution of remaining lifetime given survival to a particular age. All of
-the above measures can be reworked as functions of remaining lifetime (i.e. the
-modal remaining lifespan), and indeed we may fruitfully define some standard
+distribution of remaining lifetimes as a function of age itself. All of
+the above measures can be reworked as functions of conditional remaining
+lifetime (e.g., the modal remaining lifespan), and indeed we may fruitfully define some standard
 statistical descriptors of shape to the distribution of remaining lifespans. In
 this paper, we aim to provide some elementary definitions and apply these to
 human populations. As an example of utility of this perspective we offer a
@@ -51,10 +51,11 @@ e(a) = \frac{\int_{y=0}^\infty l(a+y) \dd y}{l(a)} \tp
 
 Say lifespans for a given birth cohort are measured with the random variable,
 $X$, with distribution $d(X)$, which is identical to the $d_x$
-column of the lifetable if a radix of 1 is used. In othe words, the
+column of the lifetable if a radix of 1 is used. In other words, the
 distribution of lifespans for newborns is identical to the distribution of
-age at death in the stationary population. We are interested in $f(X-a ~|~ X \ge
-a)$, which we denote using $f(y|a)$, and which is defined as:
+age at death in the stationary population. We are interested in the
+conditional density function, $f(X-a ~|~ X \ge a)$, which we denote using
+$f(y|a)$, and which is defined as:
 \begin{equation}
 \label{eq:fya}
 f(y|a) = \mu(a+y) \frac{l(a+y)}{l(a)} \tc
@@ -72,9 +73,8 @@ of $f(y|a)$ is a worthy topic of study, as it bears heavily on many late-life
 decisions, such as bequesting or moving into a care residence, and possibly also
 on the ethical pondering of public policies, such as mandatory retirement ages
 or pensions. The conditional distribution of remaining lifetimes can be
-described empirically, or more parsimoniously using the standard tools of 
-statistics (central moments) used to describe distributions: the variance,
-skewness and kurtosis.
+described empirically, or more parsimoniously using standardized moments used to
+describe distributions: the variance, skewness and kurtosis.
 
 The $n^{th}$ momet of $f(y|a)$, $\eta_n(y|a)$ is defined as: 
 \begin{align}
@@ -94,6 +94,11 @@ CV(y|a) = \frac{\sqrt{\sigma^2(y|a)}}{e(a)}
 \noindent $CV(y|a)$ is dimensionless and comparable over age, and its reciprocal
 can be thought of as a signal to noise ratio of one's likely remaining lifespan,
 assuming a constant mortality pattern in ages higher than $a$.
+
+Another option, more robust to noise and outliers, and also appropriate for
+ordered vaiables such as age-classified mortality functions, are L-moments
+\citep{hosking1990moments}. L-moments can be defined over age, and also as a
+function of age, as the above.
 
 \section{Observed patterns}
 The above definitions are perhaps too clean to be analytically useful outside
