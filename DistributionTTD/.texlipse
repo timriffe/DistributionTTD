@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Thu Jul 03 11:34:41 CEST 2014
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=DistributionTTD.tex
+outputFile=DistributionTTD.pdf
+langSpell=en
+markDer=true
+srcDir=
