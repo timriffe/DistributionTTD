@@ -109,7 +109,8 @@ LT <- do.call(rbind,lapply(Countries, function(XYZ,us,pw){
             LT$CNTRY <- XYZ
             LT
         },us=us,pw=pw))
-head(LT)
+# order columns (no worries, Age is integer)
+LT <- LT[with(LT, order(CNTRY,Sex,Year,Age)),]
 # convert to data.table
 library(data.table)
 LT   <- data.table(LT)
@@ -122,3 +123,14 @@ LT[, L2   := getL2b_ta(dx),  by = list(CNTRY, Sex, Year)]
 LT[, L3   := getL3b_ta(dx),  by = list(CNTRY, Sex, Year)]
 # you can use it just like a df as well, no worries.
 save(LT, file = "Data/LTM.Rdata")
+head(LT)
+
+# LexisMap() comes from LexisUtils, on github:
+# devtools::install_github("LexisUtils", subdir = "LexisUtils", username = "timriffe")
+#LexisUtils::LexisMap(
+#        reshape2::acast(LT[LT$CNTRY == "SWE" & LT$Sex == "f", ], Age~Year, value.var = "skew"),
+#        log=FALSE)
+#LexisUtils::LexisMap(
+#        reshape2::acast(LT[LT$CNTRY == "SWE" & LT$Sex == "f", ], Age~Year, value.var = "CV"),
+#        log=FALSE)
+print(object.size(LT),units="Mb") # 106.8 Mb
