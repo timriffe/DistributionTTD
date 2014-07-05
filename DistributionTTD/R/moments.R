@@ -99,7 +99,7 @@ Countries <- getHMDcountries() # returns vector of HMD country codes
 # us <- "adam's username"
 # pw <- "adam's password"
 # makes long data frame of HMD lifetables, takes several minutes to run
-LT <- do.call(rbind,lapply(Countries, function(XYZ){
+LT <- do.call(rbind,lapply(Countries, function(XYZ,us,pw){
             # downloads just like yours, but fixes some column classes.
             LTM      <- readHMDweb(XYZ,"mltper_1x1",username=us,password=pw)   
             LTF      <- readHMDweb(XYZ,"fltper_1x1",username=us,password=pw) 
@@ -108,8 +108,8 @@ LT <- do.call(rbind,lapply(Countries, function(XYZ){
             LT       <- rbind(LTM, LTF)
             LT$CNTRY <- XYZ
             LT
-        }))
-
+        },us=us,pw=pw))
+head(LT)
 # convert to data.table
 library(data.table)
 LT   <- data.table(LT)
