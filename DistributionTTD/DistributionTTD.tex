@@ -18,7 +18,7 @@
 \begin{document}
 
 \title{Distributional aspects of time to death in human populations}
-\author{Tim Riffe}
+\author{Tim Riffe, Adam Lenart, Vladimir Canudas Romo}
 \maketitle
 
 \section{Background}
@@ -73,7 +73,8 @@ of $f(y|a)$ is a worthy topic of study, as it bears heavily on many late-life
 decisions, such as bequesting or moving into a care residence, and possibly also
 on the ethical pondering of public policies, such as mandatory retirement ages
 or pensions. The conditional distribution of remaining lifetimes can be
-described empirically, or more parsimoniously using standardized moments/
+described empirically using quantiles, or other central measures such as the
+median or the mode, or perhaps more parsimoniously using standardized moments.
 
 The $n^{th}$ moment about the conditional mean of $f(y|a)$,
 $\eta_n(y|a)$ is defined as:
@@ -84,29 +85,38 @@ y
 \eta _n(y|a) =&  \int_{y=0}^\infty (y-e(a))^n f(y|a) \dd y \tc
 \end{align}
 where $\eta_2(y|a)$ gives the variance of remaining lifespan about $e(a)$,
-$\sigma^2(y|a)$. Conditional skewness of $f(y|a)$ is
-calculated as:
+$\sigma^2(y|a)$. Survival-conditioned variance is useful information, but it can be deceptive to display graphically, since lifespan variation
+is not usually symmetric around $e(a)$. The conditional skewness function is not
+a perfect measure of symmetry in $f(y|a)$, but it captures most such varation
+and can be roughly interpreted in this way. is calculated as:
 \begin{equation}
 \frac{\eta_3(y|a)}{\eta_2(y|a)^{\frac{3}{2}}} \tc
 \end{equation}
 the third standardized moment. The fourth standardized moment, the conditional
-kurtosis of $f(y|a)$ is defined as
+kurtosis of $f(y|a)$, is defined as (find appropriate notation for skewness and
+kurtosis)
 \begin{equation}
 \frac{\eta_4(y|a)}{\eta_2(y|a)^2} \tp
 \end{equation}
 The coefficient of variation of remaining lifespan, $CV(y|a)$ is then simply
 \begin{equation}
-CV(y|a) = \frac{\sqrt{\eta_2(y|a)}}{e(a)}
+CV(y|a) = \frac{\sqrt{\eta_2(y|a)}}{e(a)} \tp
 \end{equation}
-
-\noindent $CV(y|a)$ is dimensionless and comparable over age, and its reciprocal
+$CV(y|a)$ is dimensionless and comparable over age, and its reciprocal
 can be thought of as a signal to noise ratio of one's likely remaining lifespan,
 assuming a constant mortality pattern in ages higher than $a$.
 
-Another option, more robust to noise and outliers, and also appropriate for
-ordered vaiables such as age-classified mortality functions, are L-moments
-\citep{hosking1990moments}. L-moments can be defined over age, and also as a
-function of age, as the above.
+L-moments\citep{hosking1990moments} may also be calculated for the the lifetable
+conditional distribution of remaining lifetimes. These measures yield qualitatively similar reslts, but
+are more robust to noise and outliers, and they are also appropriate for ordered
+vaiables such as age-classified mortality functions. Tyically L-moment
+calculation proceeds from individual-level data, which is never drawn from
+a stationary population. Here we present the general L-moment formulas for
+grouped data, which can be applied to the standard lifetable if specified with a
+large radix, such as the HMD standard of $100,000$, or possibly more
+appropriately to a radix the size of the theoretical stationay birth cohort
+that would yield the same popuation size as that observed in the year to which
+the lifetable refers (Adam, am I way of?).
 
 \section{Observed patterns}
 The above definitions are exact and amenable to calculation from the standard
@@ -137,5 +147,7 @@ lesser for a longer total lifespan.
 Can the age of minimum variance be used as another sort of demographic threshold
 for ageing or dependency?
 
+\bibliographystyle{plainnat}
+  \bibliography{references}   % Use the BibTeX file ``References.bib''.
 
 \end{document}

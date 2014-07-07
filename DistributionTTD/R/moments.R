@@ -49,41 +49,45 @@ da2fya <- function(da, stagger = FALSE){
 # as the radix is not 1? We should be able to calculate things with radix-1 lifetables, right?
 
 # OK getting on with it: everything is the same as yours, but with '_ta' appended to the name
-getB0b_ta <- function(dx, radix = 1e5, n = length(dx), age = (1:n) - .5){
+
+# age is now defined as intege completed age plus ax, where relevant (same as mid interval, 
+# but cleaner when infants are included)
+
+getB0b_ta <- compiler::cmpfun(function(dx, age, radix = 1e5){
     fya     <- da2fya(dx, FALSE) * radix
     age     <- matrix(age[col(fya)], nrow = nrow(fya), ncol = ncol(fya))
     rowSums(age * fya) / rowSums(fya)
-} 
+} )
 
-getB1b_ta <- function(dx, radix = 1e5, n = length(dx), age = (1:n) - .5){
+getB1b_ta <- compiler::cmpfun(function(dx, age, radix = 1e5){
     fya     <- da2fya(dx, FALSE) * radix
     age     <- matrix(age[col(fya)], nrow = nrow(fya), ncol = ncol(fya))
-    W       <- cbind(0, t(apply(fya, 1, cumsum))[,-n])
+    W       <- cbind(0, t(apply(fya, 1, cumsum))[,-ncol(fya)])
     L       <- age * fya * (W + (1 / 2) * (fya - 1))
     1 / (radix * (radix - 1)) * rowSums(L)
- }
+ })
 
-getB2b_ta <- function(dx, radix = 1e5, n = length(dx), age = (1:n) - .5){
+getB2b_ta <- compiler::cmpfun(function(dx, age, radix = 1e5){
     fya     <- da2fya(dx, FALSE) * radix
     age     <- matrix(age[col(fya)], nrow = nrow(fya), ncol = ncol(fya))
-    W       <- cbind(0, t(apply(fya, 1, cumsum))[, -n])
+    W       <- cbind(0, t(apply(fya, 1, cumsum))[, -ncol(fya)])
     L       <- rowSums(fya * age * (W ^ 2 + W * (fya - 2) + (fya - 1) * (fya - 2) / 3))
     1 / (radix * (radix - 1) * (radix - 2)) * L
+})
+
+getL2b_ta <- function(dx, age){
+    2 * getB1b_ta(dx = dx, age = age) - 
+            getB0b_ta(dx = dx, age = age)
 }
 
-getL2b_ta <- function(dx){
-    2 * getB1b_ta(dx = dx) - 
-            getB0b_ta(dx = dx)
+getL3b_ta <- function(dx, age){
+    6 * getB2b_ta(dx = dx, age = age) - 
+            6 * getB1b_ta(dx = dx, age = age) +
+            getB0b_ta(dx = dx, age = age)
 }
 
-getL3b_ta <- function(dx){
-    6 * getB2b_ta(dx = dx) - 
-            6 * getB1b_ta(dx = dx) +
-            getB0b_ta(dx = dx)
-}
-
-getSkew_ta <- function(dx){
-    getL3b_ta(dx) / getL2b_ta(dx)  
+getSkew_ta <- function(dx, age){
+    getL3b_ta(dx, age) / getL2b_ta(dx, age)  
 } 
 
 # 4th moment tbd. general moment function?
@@ -94,49 +98,51 @@ getSkew_ta <- function(dx){
 #    getL4b_ta(dx) / getL2b_ta(dx)  
 #} 
 
-
-getCV_ta <- function(dx){
-    getL2b_ta(dx) / getB0b_ta(dx)
+getCV_ta <- function(dx, age){
+    getL2b_ta(dx, age = age) / getB0b_ta(dx, age = age)
 }
 
 # -----------------------------------------------------------------
 # how does this compare with general moments?
 #\eta _n(y|a) =&  \int_{y=0}^\infty (y-e(a))^n f(y|a) \dd y \tc
-momentN <- function(dx,n){
+momentN <- compiler::cmpfun(function(dx, n, ax){
     fya <- da2fya(dx)
-    ex  <- rowSums((col(fya) - .5) * fya)
+    ex  <- rowSums((col(fya) - (1 - ax)) * fya)
     rowSums(((col(fya) - .5) - ex)^n * fya)
-}
+})
 
-getSkewst <- function(dx){
+getSkewst <- function(dx, ax){
     # formula from http://en.wikipedia.org/wiki/Skewness
-    momentN(dx,3) / (momentN(dx,2) ^ (3/2)) 
+    momentN(dx, n = 3, ax = ax) / (momentN(dx, n = 2, ax = ax) ^ (3/2)) 
 }
-getKurtst <- function(dx){
-    momentN(dx,4) / (momentN(dx,2) ^ 2) 
+getKurtst <- function(dx, ax){
+    momentN(dx, n = 4, ax = ax) / (momentN(dx, n = 2, ax = ax) ^ 2) 
 }
 
-getMedian <- function(dx,n = length(dx),age = (1:n-1)){
+# monotonic spline - interpolated median remaining years of life.
+getMedian <- function(dx){
     fya     <- da2fya(dx)
     # needs age at clean breaks, like lx
-    CDF     <- t(apply(fya,1,cumsum))
+    CDF     <- cbind(0,t(apply(fya,1,cumsum)))
+    Age     <- 1:ncol(CDF) - 1
     # monotonic avoids negatives. Last value zero for ease, but not comparable with e_\omega
-    med <- c(apply(CDF[-n,],1,function(cdf,age){
-                splinefun(age~cdf,method="monoH.FC")(.5) 
-            }, age = age),0)
-    med
+    medAges <- apply(CDF,1,function(cdf,Age){
+                        if (length(unique(cdf)) > 2){
+                            return(splinefun(Age~cdf, method = "monoH.FC")(.5))
+                        } else {
+                            # defaul value, didn't think much on this
+                            return(0.5)
+                        }
+                    }, Age = Age)
+    medAges[medAges < 0] <- 0 
+    medAges 
 }
-
-
-
-plot(test$Age, getMedian(test$dx),type = 'l')
-lines(test$Age, test$ex,col="blue")
-
-# neither skew measure benchmarks symmetry
-plot(test$Age, getMedian(test$dx) - test$ex,type = 'l')
-lines(test$Age, test$Sskew,col="blue")
-lines(test$Age, test$Lskew,col="green")
-abline(h=0)
+# interpolated Modal remaining years of life
+getMode <- function(dx){
+    fya <- c(0,da2fya(dx),0)
+    Age <- 1:ncol(fya) - 1
+    ?splinefun
+}
 
 #library(devtools)
 #install_github("DemogBerkeley", subdir = "DemogBerkeley", username = "UCBdemography")
@@ -162,22 +168,35 @@ LT <- LT[with(LT, order(CNTRY,Sex,Year,Age)),]
 library(data.table)
 LT   <- data.table(LT)
 
-# This is just quick because it avoids df copying somehow..
-LT[, Lskew := getSkew_ta(dx), by = list(CNTRY, Sex, Year)]
-LT[, LCV   := getCV_ta(dx),   by = list(CNTRY, Sex, Year)]
-LT[, Lmad  := getB0b_ta(dx),  by = list(CNTRY, Sex, Year)]
-LT[, L2    := getL2b_ta(dx),  by = list(CNTRY, Sex, Year)]
-LT[, L3    := getL3b_ta(dx),  by = list(CNTRY, Sex, Year)]
+# LT <- local(get(load("Data/LTM.Rdata")))
+head(LT)
+getL3b_ta
+# These calcs might take a while.
+LT[, Lskew := getSkew_ta(dx,age = Age + ax), by = list(CNTRY, Sex, Year)]
+LT[, LCV   := getCV_ta(dx,age = Age + ax),   by = list(CNTRY, Sex, Year)]
+LT[, Lmad  := getB0b_ta(dx, age = Age + ax), by = list(CNTRY, Sex, Year)]
+LT[, L2    := getL2b_ta(dx, age = Age + ax), by = list(CNTRY, Sex, Year)]
+LT[, L3    := getL3b_ta(dx, age = Age + ax), by = list(CNTRY, Sex, Year)]
 # standard skew and kurtosis (from stanardized moments)
-LT[, Sskew := getSkewst(dx),  by = list(CNTRY, Sex, Year)]
-LT[, Skurt := getKurtst(dx),  by = list(CNTRY, Sex, Year)]
-# need to make getMedian() more robust to lifetables that close out early.
-#LT[, eMed := getMedian(dx),  by = list(CNTRY, Sex, Year)]
+LT[, Sskew := getSkewst(dx,ax),  by = list(CNTRY, Sex, Year)]
+LT[, Skurt := getKurtst(dx,ax),  by = list(CNTRY, Sex, Year)]
+LT[, eMed := getMedian(dx),  by = list(CNTRY, Sex, Year)]
 # you can use it just like a df as well, no worries.
 save(LT, file = "Data/LTM.Rdata")
 
 i <- with(LT, Year == 2010 & Sex == "m" & CNTRY == "USA")
 test <- LT[i,]
+getSkew_ta(test$dx,age = test$Age + test$ax)
+#plot(test$Age, getMedian(test$dx),type = 'l')
+#lines(test$Age, test$ex,col="blue")
+#
+## neither skew measure benchmarks symmetry
+#plot(test$Age, getMedian(test$dx) - test$ex,type = 'l')
+#lines(test$Age, test$Sskew,col="blue")
+#lines(test$Age, test$Lskew,col="green")
+#abline(h=0)
+
+
 # ex differences in young ages.
 plot(test$ex, test$Lmad)
 # compare skew, not same
