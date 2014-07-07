@@ -86,10 +86,57 @@ getSkew_ta <- function(dx){
     getL3b_ta(dx) / getL2b_ta(dx)  
 } 
 
+# 4th moment tbd. general moment function?
+#getL4b_ta <- function(dx){
+#    
+#}
+#getKurt_ta <- function(dx){
+#    getL4b_ta(dx) / getL2b_ta(dx)  
+#} 
+
+
 getCV_ta <- function(dx){
     getL2b_ta(dx) / getB0b_ta(dx)
 }
 
+# -----------------------------------------------------------------
+# how does this compare with general moments?
+#\eta _n(y|a) =&  \int_{y=0}^\infty (y-e(a))^n f(y|a) \dd y \tc
+momentN <- function(dx,n){
+    fya <- da2fya(dx)
+    ex  <- rowSums((col(fya) - .5) * fya)
+    rowSums(((col(fya) - .5) - ex)^n * fya)
+}
+
+getSkewst <- function(dx){
+    # formula from http://en.wikipedia.org/wiki/Skewness
+    momentN(dx,3) / (momentN(dx,2) ^ (3/2)) 
+}
+getKurtst <- function(dx){
+    momentN(dx,4) / (momentN(dx,2) ^ 2) 
+}
+
+getMedian <- function(dx,n = length(dx),age = (1:n-1)){
+    fya     <- da2fya(dx)
+    # needs age at clean breaks, like lx
+    CDF     <- t(apply(fya,1,cumsum))
+    # monotonic avoids negatives. Last value zero for ease, but not comparable with e_\omega
+    med <- c(apply(CDF[-n,],1,function(cdf,age){
+                splinefun(age~cdf,method="monoH.FC")(.5) 
+            }, age = age),0)
+    med
+}
+
+
+
+plot(test$Age, getMedian(test$dx),type = 'l')
+lines(test$Age, test$ex,col="blue")
+
+# neither skew measure benchmarks symmetry
+plot(test$Age, getMedian(test$dx) - test$ex,type = 'l')
+lines(test$Age, test$Sskew,col="blue")
+lines(test$Age, test$Lskew,col="green")
+abline(h=0)
 
 #library(devtools)
 #install_github("DemogBerkeley", subdir = "DemogBerkeley", username = "UCBdemography")
@@ -116,14 +163,40 @@ library(data.table)
 LT   <- data.table(LT)
 
 # This is just quick because it avoids df copying somehow..
-LT[, skew := getSkew_ta(dx), by = list(CNTRY, Sex, Year)]
-LT[, CV   := getCV_ta(dx),   by = list(CNTRY, Sex, Year)]
-LT[, mad  := getB0b_ta(dx),  by = list(CNTRY, Sex, Year)]
-LT[, L2   := getL2b_ta(dx),  by = list(CNTRY, Sex, Year)]
-LT[, L3   := getL3b_ta(dx),  by = list(CNTRY, Sex, Year)]
+LT[, Lskew := getSkew_ta(dx), by = list(CNTRY, Sex, Year)]
+LT[, LCV   := getCV_ta(dx),   by = list(CNTRY, Sex, Year)]
+LT[, Lmad  := getB0b_ta(dx),  by = list(CNTRY, Sex, Year)]
+LT[, L2    := getL2b_ta(dx),  by = list(CNTRY, Sex, Year)]
+LT[, L3    := getL3b_ta(dx),  by = list(CNTRY, Sex, Year)]
+# standard skew and kurtosis (from stanardized moments)
+LT[, Sskew := getSkewst(dx),  by = list(CNTRY, Sex, Year)]
+LT[, Skurt := getKurtst(dx),  by = list(CNTRY, Sex, Year)]
+# need to make getMedian() more robust to lifetables that close out early.
+#LT[, eMed := getMedian(dx),  by = list(CNTRY, Sex, Year)]
 # you can use it just like a df as well, no worries.
 save(LT, file = "Data/LTM.Rdata")
-head(LT)
+
+i <- with(LT, Year == 2010 & Sex == "m" & CNTRY == "USA")
+test <- LT[i,]
+# ex differences in young ages.
+plot(test$ex, test$Lmad)
+# compare skew, not same
+plot(test$Sskew,test$Lskew,main = "seem to agree about crossover age")
+abline(h=0);abline(v=0)
+
+# again compare, seems that Standard skew is similar but scaled up
+plot(test$Age, test$Sskew, type = 'l')
+lines(test$Age, test$Lskew, col = "blue")
+abline(v=test$ex[1])
+# does Skew = 0 at the age where median remaining = mean remaining?
+# not necessarily, since it doesn't measure symmetry per se.
+
+# except it's not a simple scalar
+plot(test$Age, test$Sskew / test$Lskew)
+
+# look at standard kurtosis (still need formula for 4th L moment??
+plot(test$Age, test$Skurt, type='l')
+abline(v=test$ex[1])
 
 # LexisMap() comes from LexisUtils, on github:
 # devtools::install_github("LexisUtils", subdir = "LexisUtils", username = "timriffe")
@@ -133,4 +206,4 @@ head(LT)
 #LexisUtils::LexisMap(
 #        reshape2::acast(LT[LT$CNTRY == "SWE" & LT$Sex == "f", ], Age~Year, value.var = "CV"),
 #        log=FALSE)
-print(object.size(LT),units="Mb") # 106.8 Mb
+print(object.size(LT),units="Mb") # 121.5 Mb

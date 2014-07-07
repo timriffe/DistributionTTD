@@ -73,22 +73,30 @@ of $f(y|a)$ is a worthy topic of study, as it bears heavily on many late-life
 decisions, such as bequesting or moving into a care residence, and possibly also
 on the ethical pondering of public policies, such as mandatory retirement ages
 or pensions. The conditional distribution of remaining lifetimes can be
-described empirically, or more parsimoniously using standardized moments used to
-describe distributions: the variance, skewness and kurtosis.
+described empirically, or more parsimoniously using standardized moments/
 
-The $n^{th}$ momet of $f(y|a)$, $\eta_n(y|a)$ is defined as: 
+The $n^{th}$ moment about the conditional mean of $f(y|a)$,
+$\eta_n(y|a)$ is defined as:
 \begin{align}
 \eta _n(y|a) =& \frac{1}{l(a)} \int_{y=0}^\infty (y-e(a))^n \mu (a+y) l(a+y) \dd
 y 
 \intertext{or just}
 \eta _n(y|a) =&  \int_{y=0}^\infty (y-e(a))^n f(y|a) \dd y \tc
 \end{align}
-where $n=2$ gives the variance, $\sigma^2(y|a)$, $n=3$ gives the skewness and
-$n=4$ gives the kurtosis. 
-
+where $\eta_2(y|a)$ gives the variance of remaining lifespan about $e(a)$,
+$\sigma^2(y|a)$. Conditional skewness of $f(y|a)$ is
+calculated as:
+\begin{equation}
+\frac{\eta_3(y|a)}{\eta_2(y|a)^{\frac{3}{2}}} \tc
+\end{equation}
+the third standardized moment. The fourth standardized moment, the conditional
+kurtosis of $f(y|a)$ is defined as
+\begin{equation}
+\frac{\eta_4(y|a)}{\eta_2(y|a)^2} \tp
+\end{equation}
 The coefficient of variation of remaining lifespan, $CV(y|a)$ is then simply
 \begin{equation}
-CV(y|a) = \frac{\sqrt{\sigma^2(y|a)}}{e(a)}
+CV(y|a) = \frac{\sqrt{\eta_2(y|a)}}{e(a)}
 \end{equation}
 
 \noindent $CV(y|a)$ is dimensionless and comparable over age, and its reciprocal
@@ -101,10 +109,10 @@ ordered vaiables such as age-classified mortality functions, are L-moments
 function of age, as the above.
 
 \section{Observed patterns}
-The above definitions are perhaps too clean to be analytically useful outside
-of idealized parametric mortality settings. We wish to examine some patterns
-of these distributional properties. For instance, is there a crossover age in
-skewness, how does this vary over time and between populations?
+The above definitions are exact and amenable to calculation from the standard
+lifetable. In following, we examine some patterns of these distributional
+properties, first by finding general patterns over age, and second by
+identifying key changes over time and between populations.
 
 Likewise, what is the age where the variance in remaining lifespan hits it's
 minimum, and how stable is this age over time and between populations?
