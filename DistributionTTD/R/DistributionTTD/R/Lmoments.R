@@ -1,3 +1,4 @@
+
 # functions originally written (and figured out) by Adam Lenart
 # adapted to be functions of age, partially documented and packaged 
 # by Tim Riffe, July 29, 2014
@@ -16,7 +17,7 @@
 #' @importFrom compiler cmpfun
 #' 
 #' @export
-getB0b_ta <- cmpfun(function(dx, age, radix = 1e5){
+getB0b_ta <- compiler::cmpfun(function(dx, age, radix = 1e5){
             fya     <- da2fya(dx, FALSE) * radix
             age     <- matrix(age[col(fya)], nrow = nrow(fya), ncol = ncol(fya))
             rowSums(age * fya) / rowSums(fya)
@@ -36,7 +37,7 @@ getB0b_ta <- cmpfun(function(dx, age, radix = 1e5){
 #' @importFrom compiler cmpfun
 #' 
 #' @export
-getB1b_ta <- cmpfun(function(dx, age, radix = 1e5){
+getB1b_ta <- compiler::cmpfun(function(dx, age, radix = 1e5){
             fya     <- da2fya(dx, FALSE) * radix
             age     <- matrix(age[col(fya)], nrow = nrow(fya), ncol = ncol(fya))
             W       <- cbind(0, t(apply(fya, 1, cumsum))[,-ncol(fya)])
@@ -58,7 +59,7 @@ getB1b_ta <- cmpfun(function(dx, age, radix = 1e5){
 #' @importFrom compiler cmpfun
 #' 
 #' @export
-getB2b_ta <- cmpfun(function(dx, age, radix = 1e5){
+getB2b_ta <- compiler::cmpfun(function(dx, age, radix = 1e5){
             fya     <- da2fya(dx, FALSE) * radix
             age     <- matrix(age[col(fya)], nrow = nrow(fya), ncol = ncol(fya))
             W       <- cbind(0, t(apply(fya, 1, cumsum))[, -ncol(fya)])

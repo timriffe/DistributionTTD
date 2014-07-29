@@ -2,7 +2,7 @@ Package: DistributionTTD
 Type: Package
 Title: DistributionTTD, functions for T. Riffe, A. Lenart and V. Canudas Romo:
     'Distributional aspects of remaining years of life'
-Version: 01.0.0399
+Version: 01.0.0413
 Date: 2014-07-29
 Author: Tim Riffe, Adam Lenart
 Maintainer: Tim Riffe <tim.riffe@gmail.com>

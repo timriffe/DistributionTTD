@@ -9,7 +9,7 @@
 #' 
 #' @export
 #' 
-Mna0 <- cmpfun(function(M){
+Mna0 <- compiler::cmpfun(function(M){
             M[is.na(M)]  <- 0
             M[is.nan(M)] <- 0
             M
@@ -25,7 +25,7 @@ Mna0 <- cmpfun(function(M){
 #' 
 #' @export
 #' 
-Minf0 <- cmpfun(function(M){
+Minf0 <- compiler::cmpfun(function(M){
             M[is.infinite(M)]  <- 0
             M
         })
@@ -40,12 +40,10 @@ Minf0 <- cmpfun(function(M){
 #' 
 #' @export
 #' 
-MinfNA <- cmpfun(function(M){
+MinfNA <- compiler::cmpfun(function(M){
             M[is.infinite(M)]  <- NA
             M
         })
-
-
 
 #'
 #' @title produce a matrix containing the age-specific distribution of remaining lifespans
