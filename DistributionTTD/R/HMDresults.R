@@ -38,6 +38,8 @@ LT[, q75   := getQuantile(dx,.75), by = list(CNTRY, Sex, Year)]
 LT[, Mode  := getMode(dx),         by = list(CNTRY, Sex, Year)]
 
 save(LT, file = "Data/HMDresults.Rdata")
+head(LT)
+str(LT)
 print(object.size(LT),units="Mb") # 121.5 Mb
 #i <- with(LT, Year == 2010 & Sex == "m" & CNTRY == "USA")
 #test <- LT[i,]
