@@ -11,15 +11,15 @@ setwd("/home/triffe/git/DistributionTTD/DistributionTTD")
 LT <- local(get(load("Data/HMDltper.Rdata")))
 
 # These calcs might take a while.
-#LT[, Lskew := getSkew_ta(dx,age = Age + ax), by = list(CNTRY, Sex, Year)]
-#LT[, LCV   := getCV_ta(dx,age = Age + ax),   by = list(CNTRY, Sex, Year)]
-#LT[, Lmad  := getB0b_ta(dx, age = Age + ax), by = list(CNTRY, Sex, Year)]
-#LT[, L2    := getL2b_ta(dx, age = Age + ax), by = list(CNTRY, Sex, Year)]
-#LT[, L3    := getL3b_ta(dx, age = Age + ax), by = list(CNTRY, Sex, Year)]
+LT[, Lskew := getSkew_ta(dx,age = Age + ax), by = list(CNTRY, Sex, Year)]
+LT[, LCV   := getCV_ta(dx,age = Age + ax),   by = list(CNTRY, Sex, Year)]
+LT[, Lmad  := getB0b_ta(dx, age = Age + ax), by = list(CNTRY, Sex, Year)]
+LT[, L2    := getL2b_ta(dx, age = Age + ax), by = list(CNTRY, Sex, Year)]
+LT[, L3    := getL3b_ta(dx, age = Age + ax), by = list(CNTRY, Sex, Year)]
 ## standard skew and kurtosis (from stanardized moments)
-#LT[, Sskew := getSkewst(dx,ax),  by = list(CNTRY, Sex, Year)]
-#LT[, Skurt := getKurtst(dx,ax),  by = list(CNTRY, Sex, Year)]
-#LT[, eMed := getMedian(dx),  by = list(CNTRY, Sex, Year)]
+LT[, Sskew := getSkewst(dx,ax),  by = list(CNTRY, Sex, Year)]
+LT[, Skurt := getKurtst(dx,ax),  by = list(CNTRY, Sex, Year)]
+LT[, eMed := getMedian(dx),  by = list(CNTRY, Sex, Year)]
 
 
 i <- with(LT, Year == 2010 & Sex == "m" & CNTRY == "USA")
