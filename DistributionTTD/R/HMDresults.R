@@ -3,10 +3,11 @@
 setwd("/home/triffe/git/DistributionTTD/DistributionTTD")
 
 # -----------------------------------------------------------------
-
-
+# install from github /or/ do devtools::load_all("R/DistributionTTD")
 #library(devtools)
-#install_github("DemogBerkeley", subdir = "DemogBerkeley", username = "UCBdemography")
+#install_github("DistributionTTD", 
+#        subdir = "DistributionTTD/R/DistributionTTD", username = "timriffe")
+library(DistributionTTD)
 
 LT <- local(get(load("Data/HMDltper.Rdata")))
 
