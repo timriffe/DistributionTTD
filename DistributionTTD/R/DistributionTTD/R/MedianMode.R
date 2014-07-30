@@ -58,8 +58,11 @@ getQuantile <- function(dx, probs = c(.1,.25,.5,.75,.9)){
                             }
                         }, Age = Age, p = p)     
             }, CDF = CDF, Age = Age)
-    colnames(Quantiles) <- probs
     Quantiles[Quantiles < 0] <- 0 
+    if (length(probs) == 1){
+        return(Quantiles)
+    }
+    colnames(Quantiles) <- probs
     Quantiles 
 }
 
