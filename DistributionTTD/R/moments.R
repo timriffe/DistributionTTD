@@ -5,32 +5,6 @@ setwd("/home/triffe/git/DistributionTTD/DistributionTTD")
 # -----------------------------------------------------------------
 
 
-
-# monotonic spline - interpolated median remaining years of life.
-getMedian <- function(dx){
-    fya     <- da2fya(dx)
-    # needs age at clean breaks, like lx
-    CDF     <- cbind(0,t(apply(fya,1,cumsum)))
-    Age     <- 1:ncol(CDF) - 1
-    # monotonic avoids negatives. Last value zero for ease, but not comparable with e_\omega
-    medAges <- apply(CDF,1,function(cdf,Age){
-                        if (length(unique(cdf)) > 2){
-                            return(splinefun(Age~cdf, method = "monoH.FC")(.5))
-                        } else {
-                            # defaul value, didn't think much on this
-                            return(0.5)
-                        }
-                    }, Age = Age)
-    medAges[medAges < 0] <- 0 
-    medAges 
-}
-# interpolated Modal remaining years of life
-getMode <- function(dx){
-    fya <- c(0,da2fya(dx),0)
-    Age <- 1:ncol(fya) - 1
-    
-}
-
 #library(devtools)
 #install_github("DemogBerkeley", subdir = "DemogBerkeley", username = "UCBdemography")
 
@@ -50,6 +24,9 @@ LT <- local(get(load("Data/HMDltper.Rdata")))
 
 i <- with(LT, Year == 2010 & Sex == "m" & CNTRY == "USA")
 test <- LT[i,]
+dx <- test$dx
+getQuantile(test$dx)
+
 getSkew_ta(test$dx,age = test$Age + test$ax)
 #plot(test$Age, getMedian(test$dx),type = 'l')
 #lines(test$Age, test$ex,col="blue")
