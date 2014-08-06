@@ -6,19 +6,19 @@
 # -----------------------------------------------------
 #' @title Adam's function getB0b, reworked as a function of age
 #' 
-#' @description Awaiting description from Adam. This amounts to a dx-weighted average remaining years of life, approximately equal to ex.
+#' @description Awaiting description from Adam. This amounts to a dx-weighted average remaining years of life, approximately equal to ex. No radix argument required here.
 #' 
 #' @param dx vector the lifetable deaths distribution
 #' @param age vector of (single) completed ages
-#' @param radix for scaling. Should be reasonably large, not 1 ...
 #' 
 #' @return age-specific vector of ...
 #' 
 #' @importFrom compiler cmpfun
 #' 
 #' @export
-getB0b_ta <- compiler::cmpfun(function(dx, age, radix = 1e5){
-            fya     <- da2fya(dx, FALSE) * radix
+getB0b_ta <- compiler::cmpfun(function(dx, age){
+            fya     <- da2fya(dx, FALSE) 
+            
             age     <- matrix(age[col(fya)], nrow = nrow(fya), ncol = ncol(fya))
             rowSums(age * fya) / rowSums(fya)
         } )
@@ -38,11 +38,12 @@ getB0b_ta <- compiler::cmpfun(function(dx, age, radix = 1e5){
 #' 
 #' @export
 getB1b_ta <- compiler::cmpfun(function(dx, age, radix = 1e5){
-            fya     <- da2fya(dx, FALSE) * radix
+            lx      <- dx2lx(dx, radix = radix)
+            fya     <- da2fya(dx, FALSE) * lx
             age     <- matrix(age[col(fya)], nrow = nrow(fya), ncol = ncol(fya))
             W       <- cbind(0, t(apply(fya, 1, cumsum))[,-ncol(fya)])
             L       <- age * fya * (W + (1 / 2) * (fya - 1))
-            1 / (radix * (radix - 1)) * rowSums(L)
+            1 / (lx * (lx - 1)) * rowSums(L)
         })
 
 # -----------------------------------------------------
@@ -60,11 +61,12 @@ getB1b_ta <- compiler::cmpfun(function(dx, age, radix = 1e5){
 #' 
 #' @export
 getB2b_ta <- compiler::cmpfun(function(dx, age, radix = 1e5){
-            fya     <- da2fya(dx, FALSE) * radix
+            lx      <- dx2lx(dx, radix = radix)
+            fya     <- da2fya(dx, FALSE) * lx
             age     <- matrix(age[col(fya)], nrow = nrow(fya), ncol = ncol(fya))
             W       <- cbind(0, t(apply(fya, 1, cumsum))[, -ncol(fya)])
             L       <- rowSums(fya * age * (W ^ 2 + W * (fya - 2) + (fya - 1) * (fya - 2) / 3))
-            1 / (radix * (radix - 1) * (radix - 2)) * L
+            1 / (lx * (lx - 1) * (lx - 2)) * L
         })
 
 # -----------------------------------------------------
