@@ -83,7 +83,7 @@ getB2b_ta <- compiler::cmpfun(function(dx, age, radix = 1e5){
 #' @export
 getL2b_ta <- function(dx, age, radix = 1e5){
     2 * getB1b_ta(dx = dx, age = age, radix = radix) - 
-            getB0b_ta(dx = dx, age = age, radix = radix)
+            getB0b_ta(dx = dx, age = age)
 }
 
 # -----------------------------------------------------
@@ -101,7 +101,7 @@ getL2b_ta <- function(dx, age, radix = 1e5){
 getL3b_ta <- function(dx, age, radix = 1e5){
     6 * getB2b_ta(dx = dx, age = age, radix = radix) - 
             6 * getB1b_ta(dx = dx, age = age, radix = radix) +
-            getB0b_ta(dx = dx, age = age, radix = radix)
+            getB0b_ta(dx = dx, age = age)
 }
 
 # -----------------------------------------------------
@@ -142,5 +142,5 @@ getLSkew_ta <- function(dx, age, radix = 1e5){
 #' 
 #' @export
 getLCV_ta <- function(dx, age, radix = 1e5){
-    getL2b_ta(dx, age = age, radix = radix) / getB0b_ta(dx, age = age, radix = radix)
+    getL2b_ta(dx, age = age, radix = radix) / getB0b_ta(dx, age = age)
 }
