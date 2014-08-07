@@ -1,3 +1,5 @@
+# script not sourced. Any functions in this that need to be used end up in the package.
+
 Mna0 <- compiler::cmpfun(function(M){
             M[is.na(M)]  <- 0
             M[is.nan(M)] <- 0

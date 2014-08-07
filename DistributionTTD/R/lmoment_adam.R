@@ -1,4 +1,6 @@
-
+# original functions by Adam Lenart for L-Moments.
+# subsumed in package functions at this time after modification by Tim Riffe.
+# new equivalents bear the same names, but with '_ta' appended, for the most part
 
 # ----------------------------------------------- #
 #                 Functions                       #

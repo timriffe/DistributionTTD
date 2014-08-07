@@ -5,8 +5,8 @@ setwd("/home/triffe/git/DistributionTTD/DistributionTTD")
 # -----------------------------------------------------------------
 # install from github /or/ do devtools::load_all("R/DistributionTTD", TRUE)
 #library(devtools)
-#install_github("DistributionTTD", 
-#        subdir = "DistributionTTD/R/DistributionTTD", username = "timriffe")
+install_github("DistributionTTD", 
+        subdir = "DistributionTTD/R/DistributionTTD", username = "timriffe")
 library(DistributionTTD)
 # what functions do we have?
 ls("package:DistributionTTD")
@@ -22,11 +22,11 @@ library(data.table)
 LT <- local(get(load("Data/HMDltper.Rdata")))
 
 # These calcs might take a while.
-LT[, Lskew := getLSkew_ta(dx,age = Age + ax), by = list(CNTRY, Sex, Year)]
-LT[, LCV   := getLCV_ta(dx,age = Age + ax),   by = list(CNTRY, Sex, Year)]
-LT[, Lmad  := getB0b_ta(dx, age = Age + ax), by = list(CNTRY, Sex, Year)]
-LT[, L2    := getL2b_ta(dx, age = Age + ax), by = list(CNTRY, Sex, Year)]
-LT[, L3    := getL3b_ta(dx, age = Age + ax), by = list(CNTRY, Sex, Year)]
+LT[, Lskew := getLSkew_ta(dx, age = Age + ax), by = list(CNTRY, Sex, Year)]
+LT[, LCV   := getLCV_ta(dx, age = Age + ax),   by = list(CNTRY, Sex, Year)]
+LT[, Lmad  := getB0b_ta(dx, age = Age + ax),   by = list(CNTRY, Sex, Year)]
+LT[, L2    := getL2b_ta(dx, age = Age + ax),   by = list(CNTRY, Sex, Year)]
+LT[, L3    := getL3b_ta(dx, age = Age + ax),   by = list(CNTRY, Sex, Year)]
 ## standard skew and kurtosis (from stanardized moments)
 LT[, Sskew := getSkewst(dx,ax),    by = list(CNTRY, Sex, Year)]
 # LT[, CV := getCVst(dx,ax),  by = list(CNTRY, Sex, Year)] # not written yet

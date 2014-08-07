@@ -1,3 +1,5 @@
+# defunct. Median remaining years of life can be calculated from getQuantile() in package
+
 # I think the age at which RLE = MRYL is the cut-off between an early and late death:
 
 

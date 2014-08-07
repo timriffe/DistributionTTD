@@ -1,3 +1,5 @@
+# code not used in paper
+
 
 JPN <- local(get(load("~/HMDWORK/JPN/Rbin/bltper_1x1.Rdata")))
 SWE <- local(get(load("~/HMDWORK/SWE/Rbin/bltper_1x1.Rdata")))

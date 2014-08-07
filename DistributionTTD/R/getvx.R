@@ -1,4 +1,4 @@
-
+# not used. Subsumed in package functions.
 
 # get variance in time until death, where mean time until death is simply ex
 # both arguments full lifetable vectors.
