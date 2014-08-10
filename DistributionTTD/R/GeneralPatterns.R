@@ -50,7 +50,10 @@ plotVariable <- function(XXX, Var){
 }
 #plotVariable(FSWE,"q50")
 plotVariable(FSWE,"ex2")
+par(mfrow=c(1,2))
 plotVariable(FSWE,"LCV")
+plotVariable(FSWE,"CV")
+graphics.off()
 #
 
 #matplot(0:100, FSWE[["q50"]][1:101,]+0:100, type = 'l', lty = 1,
@@ -86,5 +89,12 @@ text(50,20, "x = years lived")
 text(-8,65, "(x+y|x) = years lived + years left",srt=90)
 rect(0,25,100,105,border = "white")
 dev.off()
+
+# some kind of linear relationship between LCV and CV
+# from age 0 until 85 or so. Not sure if it's constant.
+# late age curl in LCV could be due to radix, but haven't tested it.
+# age 0 difference due to ax use in CV, but midpoint in LCV
+plot(FSWE[["CV"]][1:101,2], FSWE[["LCV"]][1:101,2], type = 'l')
+lm(FSWE[["LCV"]][2:86,3] ~ FSWE[["CV"]][2:86,3])
 
 
