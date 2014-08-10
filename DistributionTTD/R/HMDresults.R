@@ -33,7 +33,7 @@ LT[, L3    := getL3b_ta(dx, age = Age + ax),   by = list(CNTRY, Sex, Year)]
 ## standard skew and kurtosis (from stanardized moments)
 LT[, Sskew := getSkewst(dx,ax),    by = list(CNTRY, Sex, Year)]
 LT[, Var   := momentN(dx,2,ax),    by = list(CNTRY, Sex, Year)]
-LT[, ex2   := momentN(dx,1,ax),    by = list(CNTRY, Sex, Year)]
+LT[, ex2   := getex(dx,ax),        by = list(CNTRY, Sex, Year)]
 LT$CV <- sqrt(LT$Var) / LT$ex2 # CV quicker to calculate this way
 LT[, Skurt := getKurtst(dx,ax),    by = list(CNTRY, Sex, Year)]
 # last ones take a while because of MANY splines being fit...
