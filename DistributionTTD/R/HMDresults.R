@@ -21,6 +21,9 @@ ls("package:DistributionTTD")
 library(data.table)
 LT <- local(get(load("Data/HMDltper.Rdata")))
 
+# for when new variables added:
+#LT <- local(get(load("Data/HMDresults.Rdata")))
+
 # These calcs might take a while.
 LT[, Lskew := getLSkew_ta(dx, age = Age + ax), by = list(CNTRY, Sex, Year)]
 LT[, LCV   := getLCV_ta(dx, age = Age + ax),   by = list(CNTRY, Sex, Year)]
@@ -29,7 +32,9 @@ LT[, L2    := getL2b_ta(dx, age = Age + ax),   by = list(CNTRY, Sex, Year)]
 LT[, L3    := getL3b_ta(dx, age = Age + ax),   by = list(CNTRY, Sex, Year)]
 ## standard skew and kurtosis (from stanardized moments)
 LT[, Sskew := getSkewst(dx,ax),    by = list(CNTRY, Sex, Year)]
-# LT[, CV := getCVst(dx,ax),  by = list(CNTRY, Sex, Year)] # not written yet
+LT[, Var   := momentN(dx,2,ax),    by = list(CNTRY, Sex, Year)]
+LT[, ex2   := momentN(dx,1,ax),    by = list(CNTRY, Sex, Year)]
+LT$CV <- sqrt(LT$Var) / LT$ex2 # CV quicker to calculate this way
 LT[, Skurt := getKurtst(dx,ax),    by = list(CNTRY, Sex, Year)]
 # last ones take a while because of MANY splines being fit...
 LT[, q25   := getQuantile(dx,.25), by = list(CNTRY, Sex, Year)]
@@ -40,49 +45,4 @@ LT[, Mode  := getMode(dx),         by = list(CNTRY, Sex, Year)]
 save(LT, file = "Data/HMDresults.Rdata")
 head(LT)
 str(LT)
-print(object.size(LT),units="Mb") # 121.5 Mb
-#i <- with(LT, Year == 2010 & Sex == "m" & CNTRY == "USA")
-#test <- LT[i,]
-#dx <- test$dx
-#getQuantile(test$dx)
-#
-#getSkew_ta(test$dx,age = test$Age + test$ax)
-#plot(test$Age, getMedian(test$dx),type = 'l')
-#lines(test$Age, test$ex,col="blue")
-#
-## neither skew measure benchmarks symmetry
-#plot(test$Age, getMedian(test$dx) - test$ex,type = 'l')
-#lines(test$Age, test$Sskew,col="blue")
-#lines(test$Age, test$Lskew,col="green")
-#abline(h=0)
-
-
-## ex differences in young ages.
-#plot(test$ex, test$Lmad)
-## compare skew, not same
-#plot(test$Sskew,test$Lskew,main = "seem to agree about crossover age")
-#abline(h=0);abline(v=0)
-#
-## again compare, seems that Standard skew is similar but scaled up
-#plot(test$Age, test$Sskew, type = 'l')
-#lines(test$Age, test$Lskew, col = "blue")
-#abline(v=test$ex[1])
-## does Skew = 0 at the age where median remaining = mean remaining?
-## not necessarily, since it doesn't measure symmetry per se.
-#
-## except it's not a simple scalar
-#plot(test$Age, test$Sskew / test$Lskew)
-#
-## look at standard kurtosis (still need formula for 4th L moment??
-#plot(test$Age, test$Skurt, type='l')
-#abline(v=test$ex[1])
-#
-## LexisMap() comes from LexisUtils, on github:
-## devtools::install_github("LexisUtils", subdir = "LexisUtils", username = "timriffe")
-##LexisUtils::LexisMap(
-##        reshape2::acast(LT[LT$CNTRY == "SWE" & LT$Sex == "f", ], Age~Year, value.var = "skew"),
-##        log=FALSE)
-##LexisUtils::LexisMap(
-##        reshape2::acast(LT[LT$CNTRY == "SWE" & LT$Sex == "f", ], Age~Year, value.var = "CV"),
-##        log=FALSE)
-#
+print(object.size(LT),units="Mb") # 173.1 Mb
