@@ -1,3 +1,22 @@
+#' @title calculate remaining life expectancy as the dx-weighted mean of remaining lifetimes
+#' 
+#' @description This should provide an estimate rather close to the typical lifetable ex, calculated as Tx/lx. Here we weight the lengths of remaining lifelines by the lifetable deaths distribution (i.e. integration in the opposite direction).
+#' 
+#' @param dx a vector of single age lifetable deaths (dx). Any radix.
+#' @param ax Chiang's lifetable ax. 
+#' 
+#' @return vector of alternative calculation of ex
+#' 
+#' @importFrom compiler cmpfun
+#' 
+#' @export 
+#' 
+
+getex <- compiler::cmpfun(function(dx, ax = rep(.5, length(dx))){
+            fya <- da2fya(dx)
+            rowSums((col(fya) - (1 - ax)) * fya)
+        })
+
 
 #' @title calculate the Nth moment of remaining years of life as a function of age
 #' 

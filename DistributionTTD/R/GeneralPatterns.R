@@ -2,14 +2,14 @@
 # this script uses the HMDresults object to search for common patterns to the various defined measures.
 setwd("/home/triffe/git/DistributionTTD/DistributionTTD")
 library(data.table)
+library(reshape2)
 HMD <- local(get(load("Data/HMDresults.Rdata")))
 head(HMD)
 
-Vars <- c("Lskew","LCV","Lmad","Sskew","Skurt","q25","q50","q75","Mode")
+Vars <- c("Lskew","LCV","Lmad","Sskew","Skurt","q25","q50","q75","Mode","CV","Var","ex","ex2")
 
-library(reshape2)
-Fdx <- acast(HMD[HMD$Sex == "f", ], Age~Year+CNTRY, value.var = "dx")
-Fex <- acast(HMD[HMD$Sex == "f", ], Age~Year+CNTRY, value.var = "ex")
+#Fdx <- acast(HMD[HMD$Sex == "f", ], Age~Year+CNTRY, value.var = "dx")
+#Fex <- acast(HMD[HMD$Sex == "f", ], Age~Year+CNTRY, value.var = "ex")
 #matplot(0:110, Fdx, type = 'l', lty = 1, col = "#00000005")
 #matplot(0:110, Fex, type = 'l', lty = 1, col = "#00000005")
 
@@ -49,8 +49,10 @@ plotVariable <- function(XXX, Var){
     legend(leftOrRight,lty=1,col=gray(c(.2,.4,.6)),lwd=c(1,2,3),legend=c(1900,1950,2000), bty = "n") 
 }
 #plotVariable(FSWE,"q50")
+plotVariable(FSWE,"ex2")
+plotVariable(FSWE,"LCV")
 #
-#
+
 #matplot(0:100, FSWE[["q50"]][1:101,]+0:100, type = 'l', lty = 1,
 #        main = paste0("Females, q50(x)"), col = gray(c(.2,.4,.6)),
 #        lwd=c(1,2,3), xlab = "Age", ylab = "q50")
