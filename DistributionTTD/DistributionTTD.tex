@@ -129,10 +129,27 @@ the lifetable refers (Adam, am I way off?).
 definition goes here:
 
 \section{Observed patterns}
-The above definitions are exact and amenable to calculation from the standard
-lifetable. In following, we examine some patterns of these distributional
-properties, first by finding general patterns over age, and second by
-identifying key changes over time and between populations.
+The above definitions are exact and amenable to calculation from
+the standard lifetable.To begin, let us
+compare some percentiles of the distribution of $f(y|a)$, translated to
+$f(a+y|a)$. Figure~\ref{fig:IQR1} provides shows the median and interquartile
+range of conditional age attained implied by period rates for Swedish females in
+1900 and 2000. In a general sense, we can conclude from this Figure that the
+lower quantiles of conditional age attained change much more over age than do
+upper quantiles. We also see that lower mortality regimes year (2000) have more
+compact interquartile ranges than to do high mortality regimes (1900), meaning
+that one can wager an age at death with greater certainty. Further, in
+contemporary low mortality regimes, with low early life mortality, the
+conditional IQR holds nearly constant (in fact it always rises, albeit
+imperceptibly) until after typical midlife ages.
+% Figure produced in R/GeneralPatterns.R
+\begin{figure}[h!]
+\centering
+	\caption{Sweden females, 1900 and 2000. \nth{75}, \nth{50}, and \nth{75}
+	percentiles of conditional survival, given period mortality (HMD)}
+	\label{fig:IQR1}
+	\includegraphics[scale=.7]{Figures/SwedenFemalesIQR1900_2000.pdf}	
+\end{figure}
 
 Likewise, what is the age where inequality in remaining lifespan is at its
 minimum, and how stable is this age over time and between populations?
