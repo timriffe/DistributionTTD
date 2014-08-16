@@ -4,7 +4,7 @@ parent.path <- "/home/triffe/git/DistributionTTD/DistributionTTD/R"     # for la
 system(paste0("cd ", parent.path, " \n git checkout master \ncommit -a -m 'full commit'"))
 # devtools::install_github("devtools")
 library(devtools)
-#install_github("TimUtils", subdir = "TimUtils", username = "timriffe")
+#install_github("timriffe/TimUtils", subdir = "TimUtils")
 library(TimUtils)
 #install.packages("roxygen2")
 #load_all(file.path(parent.path ,"DemogBerkeley"))
