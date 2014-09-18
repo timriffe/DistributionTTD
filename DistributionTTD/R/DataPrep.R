@@ -1,12 +1,19 @@
 # compiles long-format all-cause complete lifetables from HMD.
 # should only run once at beginning and again once at end 
 # (for final data version in paper, to be saved with metadata)
-
-setwd("/home/triffe/git/DistributionTTD/DistributionTTD")
+# for Tim, this will choke
+if (system("hostname",intern=TRUE)=="triffe-N80Vm"){
+  # if I'm on the laptop
+  setwd("/home/tim/git/DistributionTTD/DistributionTTD")
+} else {
+  # in that case I'm on Berkeley system, and other people in the dept can run this too
+  setwd(paste0("/hdir/0/",system("whoami",intern=TRUE),"/git/DistributionTTD/DistributionTTD"))
+}
 
 #library(devtools)
 #install_github("DemogBerkeley", subdir = "DemogBerkeley", username = "UCBdemography")
 library(DemogBerkeley)
+library(data.table)
 Countries <- getHMDcountries() # returns vector of HMD country codes
 
 # us <- "HMD username" # change to yours: you need to be registered at www.mortality.org
@@ -25,7 +32,7 @@ LT <- do.call(rbind,lapply(Countries, function(XYZ, us, pw){
 # order columns (no worries, Age is integer)
 LT   <- LT[with(LT, order(CNTRY, Sex, Year, Age)),]
 # convert to data.table
-library(data.table)
+
 LT   <- data.table(LT)
 
 # for 'Date Accessed' entry in HMD reference. 

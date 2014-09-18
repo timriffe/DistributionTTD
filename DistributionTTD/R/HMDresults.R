@@ -1,6 +1,12 @@
 # Hi Adam, here is your script back, just the 'b' functions,
 # no 'section' function. Now age-conditioned. See further comments below
-setwd("/home/triffe/git/DistributionTTD/DistributionTTD")
+if (system("hostname",intern=TRUE)=="triffe-N80Vm"){
+  # if I'm on the laptop
+  setwd("/home/tim/git/DistributionTTD/DistributionTTD")
+} else {
+  # in that case I'm on Berkeley system, and other people in the dept can run this too
+  setwd(paste0("/hdir/0/",system("whoami",intern=TRUE),"/git/DistributionTTD/DistributionTTD"))
+}
 
 # -----------------------------------------------------------------
 # install from github /or/ do devtools::load_all("R/DistributionTTD", TRUE)

@@ -1,6 +1,12 @@
 
 # this script uses the HMDresults object to search for common patterns to the various defined measures.
-setwd("/home/triffe/git/DistributionTTD/DistributionTTD")
+if (system("hostname",intern=TRUE)=="triffe-N80Vm"){
+  # if I'm on the laptop
+  setwd("/home/tim/git/DistributionTTD/DistributionTTD")
+} else {
+  # in that case I'm on Berkeley system, and other people in the dept can run this too
+  setwd(paste0("/hdir/0/",system("whoami",intern=TRUE),"/git/DistributionTTD/DistributionTTD"))
+}
 library(data.table)
 library(reshape2)
 HMD <- local(get(load("Data/HMDresults.Rdata")))
