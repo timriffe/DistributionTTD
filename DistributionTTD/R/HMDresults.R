@@ -10,10 +10,11 @@ if (system("hostname",intern=TRUE)=="triffe-N80Vm"){
 
 # -----------------------------------------------------------------
 # install from github /or/ do devtools::load_all("R/DistributionTTD", TRUE)
-#library(devtools)
-install_github("DistributionTTD", 
-        subdir = "DistributionTTD/R/DistributionTTD", username = "timriffe")
-library(DistributionTTD)
+library(devtools)
+#install_github("DistributionTTD", 
+#        subdir = "DistributionTTD/R/DistributionTTD", username = "timriffe")
+#library(DistributionTTD)
+load_all("/hdir/0/triffe/git/DistributionTTD/DistributionTTD/R/DistributionTTD")
 # what functions do we have?
 ls("package:DistributionTTD")
 # silly utilities: "Minf0", "MinfNA", "Mna0"
@@ -49,6 +50,6 @@ LT[, q75   := getQuantile(dx,.75), by = list(CNTRY, Sex, Year)]
 LT[, Mode  := getMode(dx),         by = list(CNTRY, Sex, Year)]
 
 save(LT, file = "Data/HMDresults.Rdata")
-head(LT)
-str(LT)
+#head(LT)
+#str(LT)
 print(object.size(LT),units="Mb") # 173.1 Mb
