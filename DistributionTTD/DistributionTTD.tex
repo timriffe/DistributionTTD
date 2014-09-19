@@ -30,7 +30,7 @@
 
 \maketitle
 
-\section{Background}
+\section*{Background}
 
 Typically demographers are satisfied to summarize the remaining lifetime for age
 groups using a mean, $e(a)$, which is however not an omnibus descriptor of time
@@ -50,11 +50,11 @@ apply these to human populations. As an example of utility of this perspective w
 selection of simple heuristics for late life decisions based on these
 distributional measures.
 
-\section{Definitions}
+\section*{Definitions}
 
 Remaining life expectancy conditional on survial to age $a$ is defined as
 \begin{equation}
-e(a) = \frac{\int_{y=0}^\infty l(a+y) \dd y}{l(a)} \tp
+e(a) = \frac{\int_0^\infty l(a+y) \dd y}{l(a)} \tp
 \end{equation}
 
 Say lifespans for a given birth cohort are measured with the random variable,
@@ -63,7 +63,8 @@ column of the lifetable if a radix of 1 is used. In other words, the
 distribution of lifespans for newborns is identical to the distribution of
 age at death in the stationary population. We are interested in the
 conditional density function, $f(X-a ~|~ X \ge a)$, which we denote using
-$f(y|a)$, and which is defined as:
+$f(y|a)$, where $a$ is age attained and $y$ is remaining years of life, and
+which is defined as:
 \begin{equation}
 \label{eq:fya}
 f(y|a) = \mu(a+y) \frac{l(a+y)}{l(a)} \tc
@@ -77,10 +78,10 @@ e(a) = \int _{y=0}^\infty y f(y|a) \dd y \tp
 Demographers make less frequent
 reference to $f(y|a)$, which is however useful for decomposing
 demographic counts into remaining lifetime classes. The empirical distribution
-of $f(y|a)$ is a worthy topic of study, as it bears heavily on many late-life
+of $f(y|a)$ is a worthy subject of study, as it bears heavily on many late-life
 decisions, such as bequesting or moving into a care residence, and possibly also
-on the ethical pondering of public policies, such as mandatory retirement ages
-or pensions. The conditional distribution of remaining lifetimes can be
+on the ethical pondering of lifespan-relevant public policies, such as mandatory
+retirement ages or pensions. The conditional distribution of remaining lifetimes can be
 described empirically using quantiles, or other central measures such as the
 median or the mode, or perhaps more parsimoniously using standardized moments.
 
@@ -94,19 +95,23 @@ y
 \end{align}
 where $\eta_2(y|a)$ gives the variance of remaining lifespan about $e(a)$,
 $\sigma^2(y|a)$. Survival-conditioned variance is useful information, but it can be deceptive to display graphically, since lifespan variation
-is not usually symmetric around $e(a)$. The conditional skewness function is not
-a perfect measure of symmetry in $f(y|a)$, but it captures most such varation
-and can be roughly interpreted in this way. is calculated as:
+is not usually symmetric around $e(a)$. The conditional skewness function,
+$\gamma_1(y|a)$ is not a perfect measure of symmetry in $f(y|a)$, but it captures most such varation
+and can be roughly interpreted in this way. It is calculated as
 \begin{equation}
-\frac{\eta_3(y|a)}{\eta_2(y|a)^{\frac{3}{2}}} \tc
+\label{eq:skew}
+\gamma_1(y|a) = \frac{\eta_3(y|a)}{\eta_2(y|a)^{\frac{3}{2}}} \tc
 \end{equation}
 the third standardized moment. The fourth standardized moment, the conditional
-kurtosis of $f(y|a)$, is defined as (find appropriate notation for skewness and
-kurtosis)
+kurtosis of $f(y|a)$, $\gamma_2(y|a)$, is defined as (find appropriate notation
+for skewness and kurtosis)
 \begin{equation}
-\frac{\eta_4(y|a)}{\eta_2(y|a)^2} \tp
+\label{eq:kurt}
+\gamma_2(y|a) = \frac{\eta_4(y|a)}{\eta_2(y|a)^2} \tp
 \end{equation}
-The coefficient of variation of remaining lifespan, $CV(y|a)$ is then simply
+The age pattern of kurtosis describes how the peakedness, or the fatness of the
+tails of the remaining distribution change over age. The coefficient of
+variation of remaining lifespan, $CV(y|a)$ is then simply
 \begin{equation}
 CV(y|a) = \frac{\sqrt{\eta_2(y|a)}}{e(a)} \tp
 \end{equation}
@@ -128,37 +133,94 @@ the lifetable refers (Adam, am I way off?).
 
 definition goes here:
 
-\section{Observed patterns}
+\section*{Observed patterns}
 The above definitions are exact and amenable to calculation from
 the standard lifetable.To begin, let us
 compare some percentiles of the distribution of $f(y|a)$, translated to
-$f(a+y|a)$. Figure~\ref{fig:IQR1} provides shows the median and interquartile
+$f(a+y|a)$. Figure~\ref{fig:IQR} provides shows the median and interquartile
 range of conditional age attained implied by period rates for Swedish females in
 1900 and 2000. In a general sense, we can conclude from this Figure that the
 lower quantiles of conditional age attained change much more over age than do
 upper quantiles. We also see that lower mortality regimes year (2000) have more
 compact interquartile ranges than to do high mortality regimes (1900), meaning
-that one can wager an age at death with greater certainty. Further, in
-contemporary low mortality regimes, with low early life mortality, the
+that one can wager an age at death with greater certainty, and even earlier in
+life.
+Further, in contemporary low mortality regimes, with low early life mortality, the
 conditional IQR holds nearly constant (in fact it always rises, albeit
 imperceptibly) until after typical midlife ages.
+
+Figure~\ref{fig:Var} is similar to Figure~\ref{fig:IQR}, but shows the
+conditional mean of conditional lifespan, $a+e(a)$, as a function of age, plus
+and minus a single standard deviation about $e(a)$. This is a less useful
+indicator of spread than is IQR, until late in life, when it yields similar
+results to the IQR. 
 % Figure produced in R/GeneralPatterns.R
-\begin{figure}[h!]
+
+\begin{figure}
 \centering
-	\caption{Sweden females, 1900 and 2000. \nth{25}, \nth{50}, and \nth{75}
-	percentiles of conditional survival, given period mortality (HMD)}
-	\label{fig:IQR1}
-	\includegraphics[scale=.7]{Figures/SwedenFemalesIQR1900_2000.pdf}	
+\caption{Sweden, females in 1900 \& 2000. Period mortality (HMD)}
+\label{fig:IQRVar}
+\begin{subfigure}[b]{.48\linewidth}
+\centering
+	\caption{\nth{25}, \nth{50}, and \nth{75}
+	percentiles of conditional lifespan.}
+	\label{fig:IQR}
+	\includegraphics[scale=.65]{Figures/SwedenFemalesIQR1900_2000.pdf}	
+\end{subfigure}
+~
+\begin{subfigure}[b]{.48\linewidth}
+\centering
+	\caption{Variation around mean, $e(a)+/-\sigma(y|a)$ 
+	(a single standard deviation).}
+	\label{fig:Var}
+	\includegraphics[scale=.65]{Figures/SwedenFemalesVar1900_2000.pdf}	
+\end{subfigure}
 \end{figure}
 
+\begin{figure}
+\centering
+\caption{Sweden, females in 1900, 1950 \& 2000. Period
+	mortality (HMD).}
+\label{fig:SkewKurt}
+\begin{subfigure}[b]{.48\linewidth}
+\caption{Skewness, $\gamma_1(y|a)$ from
+	equation~\eqref{eq:skew}.}
+	\label{fig:skew}
+	\includegraphics[scale=.65]{Figures/SwedenFemalesSkew1900_2000.pdf}	
+\end{subfigure}
+~
+\begin{subfigure}[b]{.48\linewidth}
+\centering
+	\caption{Kurtosis, $\gamma_2(y|a)$ from
+	equation~\eqref{eq:kurt}.}
+	\label{fig:kurt}
+	\includegraphics[scale=.65]{Figures/SwedenFemalesKurt1900_2000.pdf}	
+\end{subfigure}
+\end{figure}
+
+Variance can be usefully supplemented after infant mortality
+has passed by referring to the skewness and kurtosis patterns over age,
+displayed in Figure~\ref{fig:SkewKurt}, which also includes intermediate year,
+1950. Skewness and kurtosis also display strong age patterns. Skewness,
+Figure~\ref{fig:skew}, essentially increases until old-age mortality
+deceleration, crossing zero somewhere the age where mean and median remaining
+life expectancy are equal, and also in the neighborhood of the late-life minimum
+in kurtosis, Figure~\ref{fig:kurt}. In contemporary low mortality conditions,
+kurtosis follows a roller-coaster pattern, but remains leptokurtic until
+possibly near the maximum lifespan.
+
+Finally, we show 
+\FloatBarrier
 Likewise, what is the age where inequality in remaining lifespan is at its
 minimum, and how stable is this age over time and between populations?
 
-\section{Heuristics}
-Ceteris paribus (i.e., in a homogenous population and where investment
-specifics do not play in), negative skewness suggests that we buy an (actuarily
-fair) annuity and positive skewness implies that the odds of us surviving to get 
-the money back are less than unity?
+\section*{Heuristics}
+\citet{edwards2013cost} establishes a cost to uncertainty in human
+lifespan, and given the above formulas we can perhaps establish an age
+pattern to these costs.
+
+Ceteris paribus (i.e., in a homogenous population and
+where investment specifics do not play in), negative skewness suggests that we buy an (actuarily fair) annuity and positive skewness implies that the odds of us surviving to get the money back are less than unity?
 
 What would the ethicist say about the just span of retirement? The variance of
 time to death is not monotonic, but instead decreases until some late age and
