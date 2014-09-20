@@ -234,5 +234,34 @@ text(30,3,"1900",col=cols[4],cex=.8)
 #text(105,6,"Variance driven by\nvery long survivors",pos=2,cex=.8)
 dev.off()
 
+colnames(HMD)
+# surfaces?
+Sskew <- acast(HMD[HMD$CNTRY == "SWE" & Sex == "f", ],Age~Year, value.var = "Sskew")
+Var   <- acast(HMD[HMD$CNTRY == "SWE" & Sex == "f", ],Age~Year, value.var = "Var")
+Kurt  <- acast(HMD[HMD$CNTRY == "SWE" & Sex == "f", ],Age~Year, value.var = "Skurt")
+ex  <- acast(HMD[HMD$CNTRY == "SWE" & Sex == "f", ],Age~Year, value.var = "ex")
+library(LexisUtils)
+library(RColorBrewer)
+display.brewer.all()
+colramp <- colorRampPalette(brewer.pal(9, "BuGn"), space = "Lab")
 
 
+pdf("Figures/Surf/exSWEf.pdf",height=5,width=11)
+par(mai=c(.5,.5,.2,1))
+LexisMap(ex,log=FALSE,contour=TRUE,colramp=colramp,nbreaks=11,LexRef=FALSE)
+dev.off()
+
+pdf("Figures/Surf/SDSWEf.pdf",height=5,width=11)
+par(mai=c(.5,.5,.2,1))
+LexisMap(sqrt(Var),log=FALSE,contour=TRUE,colramp=colramp,nbreaks=15,LexRef=FALSE)
+dev.off()
+
+pdf("Figures/Surf/SskewSWEf.pdf",height=5,width=11)
+par(mai=c(.5,.5,.2,1))
+LexisMap(Sskew,log=FALSE,contour=TRUE,colramp=colramp,nbreaks=11,LexRef=FALSE)
+dev.off()
+
+pdf("Figures/Surf/KurtSWEf.pdf",height=5,width=11)
+par(mai=c(.5,.5,.2,1))
+LexisMap(Kurt,log=FALSE,contour=TRUE,colramp=colramp,nbreaks=13,LexRef=FALSE)
+dev.off()
