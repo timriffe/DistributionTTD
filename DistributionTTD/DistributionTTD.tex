@@ -44,9 +44,10 @@ distribution of remaining lifetimes as a function of age itself. All lifetable
 summary measures can be reworked as functions of conditional remaining lifetime
 (e.g., the modal remaining lifespan) to become functions of age.
 In this paper, we aim to provide some elementary definitions and
-apply these to human populations. As an example of utility of this perspective
-we suggest a selection of simple heuristics for late life decisions based on
-these distributional measures.
+apply these to human populations. We use HMD data for Swedish females to
+illustrate concepts, and provide results for other HMD populations in a
+forthcoming online appendix. As an example of utility of this perspective we
+suggest a selection of simple heuristics for late life decisions based on these distributional measures.
 
 \section*{Definitions}
 
@@ -94,8 +95,8 @@ y
 where $\eta_2(y|a)$ gives the variance of remaining lifespan about $e(a)$,
 $\sigma^2(y|a)$. Survival-conditioned variance is useful information, but it can be deceptive to display graphically, since lifespan variation
 is not usually symmetric around $e(a)$. The conditional skewness function,
-$\gamma_1(y|a)$ is not a perfect measure of symmetry in $f(y|a)$, but it captures most such varation
-and can be roughly interpreted in this way. It is calculated as
+$\gamma_1(y|a)$ is not a perfect measure of symmetry in $f(y|a)$, but it
+captures most such variation and can be roughly interpreted in this way. It is calculated as
 \begin{equation}
 \label{eq:skew}
 \gamma_1(y|a) = \frac{\eta_3(y|a)}{\eta_2(y|a)^{\frac{3}{2}}} \tc
@@ -133,13 +134,15 @@ assuming a constant mortality pattern in ages higher than $a$.
 
 \section*{Observed patterns}
 The above definitions are exact and amenable to calculation from
-the standard lifetable. To begin, let us
-compare some percentiles of the distribution of $f(y|a)$, translated to
-$f(a+y|a)$. Figure~\ref{fig:IQR} provides shows the median and interquartile
-range of conditional age attained implied by period rates for Swedish females in
-1900 and 2000. In a general sense, we can conclude from this Figure that the
-lower quantiles of conditional age attained change much more over age than do
-upper quantiles. We also see that lower mortality regimes year (2000) have more
+the standard lifetable. We illustrate using the long series of Swedish data
+available from the HMD. We begin by outlining the basic age pattern of
+some interesting distribution descriptors, and continue by plotting
+age-period trends as Lexis surfaces. Results show distinct transitions
+according to the index viewed. The mean, standard deviation, skewness and
+kurtosis occasionaly suggest different onset dates. 
+
+To
+begin, let us compare some quantiles of the distribution of $f(y|a)$, translated to $f(a+y|a)$. Figure~\ref{fig:IQR} provides shows the median and interquartile range of conditional age attained implied by period rates for Swedish females in 1900 and 2000. In a general sense, we can conclude from this Figure that the lower quantiles of conditional age attained change much more over age than do upper quantiles. We also see that lower mortality regimes year (2000) have more
 compact interquartile ranges than to do high mortality regimes (1900), meaning
 that one can wager an age at death with greater certainty, and even earlier in
 life.
@@ -195,6 +198,7 @@ results to the IQR.
 	\includegraphics[scale=.65]{Figures/SwedenFemalesKurt1900_2000.pdf}	
 \end{subfigure}
 \end{figure}
+\FloatBarrier
 
 Variance can be usefully supplemented after infant mortality
 has passed by referring to the skewness and kurtosis patterns over age,
@@ -211,11 +215,20 @@ Each distribution moment has undergone major shifts in the recorded past, which
 we plot on Lexis surfaces for Swedish females for the 260 years of data
 available from the HMD. Figure~\ref{fig:exLex} shows the well-known mean
 remaining lifespan, $e(a)$, the isopeleths of which have maintained a steady
-linear increasing pattern since the 1950s. Figure~\ref{fig:sdLex} shows the
-standard deviation of remaining lifespan, the age pattern of which held roughly
+linear increasing pattern since at least the 1950s. Figure~\ref{fig:sdLex} shows
+the standard deviation of remaining lifespan, the age pattern of which held roughly
 constant for the first 150 years of data, and appears to have started an
-abrupt shift starting at the 1918 influenza pandemic and possibly still
-underway.
+abrupt shift, still underway, starting at the 1918 influenza pandemic.
+
+Skewness, Figure~\ref{fig:skewLex} has undergone a much longer
+transition, starting before the mid \nth{19} Century and accelerating after the 1918
+pandemic. The trend has been one of decrease in all ages. Kurtosis,
+Figure~\ref{fig:kurtLex}, began its transition around 1900, decreasing in ages
+above $e(a)$ and increasing in ages below $e(a)$, but always obtaining a
+local minimum near $e(a)$.
+The coefficient of variation, Figure~\ref{fig:CVLex}, began its decreasing trend
+in the \nth{19} Century, driven initially by its denominator, $e(a)$, and after 1918 by
+both changes in the mean and standard deviation.
 
 \begin{figure}
 \centering
@@ -240,16 +253,17 @@ underway.
 \end{figure}
 
 \begin{figure}
+\vspace{-6em}
 \centering
-\caption{Skewness and Kurtosis of remaining lifespan. Sweden, females in
-1751-2011, ages 0-110+.
+\caption{Skewness, Kurtosis and CV of remaining lifespan.
+Sweden, females in 1751-2011, ages 0-110+.
 Period mortality (HMD).}
 \label{fig:exsdLex}
 \begin{subfigure}{1.1\textwidth}
 \centering
 \caption{Skewness, $\gamma_1(y|a)$}
 \vspace{-1em}
-	\label{fig:exLex}
+	\label{fig:skewLex}
 	\makebox[\textwidth][c]{\includegraphics[scale=.6]{Figures/Surf/SskewSWEf.pdf}
 	}
 \end{subfigure}
@@ -258,36 +272,48 @@ Period mortality (HMD).}
 \centering
 	\caption{Kurtosis, $\gamma_2(y|a)$}
 	\vspace{-1em}
-	\label{fig:sdLex}
+	\label{fig:kurtLex}
 	\makebox[\textwidth][c]{\includegraphics[scale=.6]{Figures/Surf/KurtSWEf.pdf}	}
 \end{subfigure}
+\\
+\begin{subfigure}{1.1\textwidth}
+\centering
+	\caption{Coefficient of Variation, $CV(y|a)$}
+	\vspace{-1em}
+	\label{fig:CVLex}
+	\makebox[\textwidth][c]{\includegraphics[scale=.6]{Figures/Surf/CVSWEf.pdf}	}
+\end{subfigure}
 \end{figure}
-
 \FloatBarrier
-Likewise, what is the age where inequality in remaining lifespan is at its
-minimum, and how stable is this age over time and between populations?
+
+Data and code used to produce these results will be made available in an open
+online repository, and an appendix of results for other HMD populations will
+also be made available online.
 
 \section*{Heuristics}
-\citet{edwards2013cost} establishes a cost to uncertainty in human
-lifespan, and given the above formulas we can perhaps establish an age
-pattern to these costs.
+It is our impression that mortality transitions have most
+often been described in terms of changes in the hazard.
+This is of course attractive because the rates in a given
+age can be imagined as independent of other ages.
+However, distributional aspects of mortality may play a
+decisive role in designing lifespan-related policies and interventions. By
+lifespan-related, we refer both to policies that affect and are affected by
+lifespan. For instance, \citet{edwards2013cost} derives an approach to
+estimating or conceiving of cost to variance in human lifespan. This work was
+based on the lifetable deaths distribution as a whole, but we pose the question
+that perhaps a) there are costs implicit in other moments and b) these costs may
+vary over age, such that optimal choices are age dependant, and the age pattern
+of optimal behavior may change over the time partly driven by mortality.
 
-e man Ceteris paribus (i.e., in a homogenous population and
-where investment specifics do not play in), negative skewness suggests that we buy an (actuarily fair) annuity and positive skewness implies that the odds of us surviving to get the money back are less than unity?
+As another example, we imagine that age-specific lifespan distributional
+properties may inform judgments on retirement policy. To equalize the duration of retirement between individuals is at
+first glance a step toward equality, but there is no necessary or best way to
+determine this duration, and there is also no necessary way to adjust this duration as a function of lifespan itself. In other words, if the desired duration of retirement is 20 years, perhaps the meaning of 20 years is greater for an individual with a shorter lifespan and lesser for a longer total lifespan. Whether the goal is to
+equalize the duration of retirement, the proportion of life in retirement, or
+some other way of partitioning lifelines into lifecourse stages, distributional
+aspects of lifespans hold promise as an element in formulating analytic
+guidelines.
 
-What would the ethicist say about the just span of retirement? The variance of
-time to death is not monotonic, but instead decreases until some late age and
-then increases again. Could a just age of mandatory retirement be the age where
-the variance in remaining lifespan is at a minimum? To equalize the duration of
-retirement between individuals is at first glance a step toward equality, but
-there is no anecessary or best way to determine this duration, and there is also
-no necessary way to adjust this duration as a function of lifespan itself. In
-other words, if the desired duration of retirement is 20 years, perhaps the
-meaning of 20 years is greater for an individual with a shorter lifespan and
-lesser for a longer total lifespan.
-
-Can the age of minimum variance be used as another sort of demographic threshold
-for ageing or dependency?
 
 \bibliographystyle{plainnat}
   \bibliography{references}   % Use the BibTeX file ``References.bib''.

@@ -9,6 +9,8 @@ if (system("hostname",intern=TRUE)=="triffe-N80Vm"){
 }
 library(data.table)
 library(reshape2)
+library(LexisUtils)
+library(RColorBrewer)
 HMD <- local(get(load("Data/HMDresults.Rdata")))
 
 
@@ -18,7 +20,7 @@ Vars <- c("Lskew","LCV","Lmad","Sskew","Skurt","q25","q50","q75","Mode","CV","Va
 #Fex <- acast(HMD[HMD$Sex == "f", ], Age~Year+CNTRY, value.var = "ex")
 #matplot(0:110, Fdx, type = 'l', lty = 1, col = "#00000005")
 #matplot(0:110, Fex, type = 'l', lty = 1, col = "#00000005")
-Fmatrices[[1]]
+
 Fmatrices <- lapply(Vars, function(v, dat){
             acast(dat[dat$Sex == "f", ], Age~Year+CNTRY, value.var = v)
         },dat=HMD)
@@ -204,7 +206,7 @@ lm(FSWE[["LCV"]][2:86,3] ~ FSWE[["CV"]][2:86,3])
 range(FSWE[["Skurt"]][1:106,],na.rm=TRUE)
 names(FSWE)
 
-# Figure for Sweden Kurtosis
+# Figure for Sweden CV
 pdf("Figures/SwedenFemalesCV1900_2000.pdf", width = 4, height = 4)
 cols <- RColorBrewer::brewer.pal(6,"Paired")
 par(mai=c(.6,.6,.2,.2), xaxs = "i", yaxs = "i",xpd = TRUE)
@@ -234,15 +236,14 @@ text(30,3,"1900",col=cols[4],cex=.8)
 #text(105,6,"Variance driven by\nvery long survivors",pos=2,cex=.8)
 dev.off()
 
-colnames(HMD)
 # surfaces?
 Sskew <- acast(HMD[HMD$CNTRY == "SWE" & Sex == "f", ],Age~Year, value.var = "Sskew")
 Var   <- acast(HMD[HMD$CNTRY == "SWE" & Sex == "f", ],Age~Year, value.var = "Var")
 Kurt  <- acast(HMD[HMD$CNTRY == "SWE" & Sex == "f", ],Age~Year, value.var = "Skurt")
 ex  <- acast(HMD[HMD$CNTRY == "SWE" & Sex == "f", ],Age~Year, value.var = "ex")
-library(LexisUtils)
-library(RColorBrewer)
-display.brewer.all()
+CV <- acast(HMD[HMD$CNTRY == "SWE" & Sex == "f", ],Age~Year, value.var = "CV")
+
+#display.brewer.all()
 colramp <- colorRampPalette(brewer.pal(9, "BuGn"), space = "Lab")
 
 
@@ -264,4 +265,10 @@ dev.off()
 pdf("Figures/Surf/KurtSWEf.pdf",height=5,width=11)
 par(mai=c(.5,.5,.2,1))
 LexisMap(Kurt,log=FALSE,contour=TRUE,colramp=colramp,nbreaks=13,LexRef=FALSE)
+dev.off()
+
+pdf("Figures/Surf/CVSWEf.pdf",height=5,width=11)
+# dev.new(height=5,width=11)
+par(mai=c(.5,.5,.2,1))
+LexisMap(CV,log=FALSE,contour=TRUE,colramp=colramp,nbreaks=15,LexRef=FALSE)
 dev.off()
