@@ -70,5 +70,6 @@ getSkewst <- function(dx, ax){
 #' 
 #' @export
 getKurtst <- function(dx, ax){
-    momentN(dx, n = 4, ax = ax) / (momentN(dx, n = 2, ax = ax) ^ 2) 
+    # formula from http://en.wikipedia.org/wiki/Kurtosis
+    momentN(dx, n = 4, ax = ax) / (momentN(dx, n = 2, ax = ax) ^ 2) - 3
 }

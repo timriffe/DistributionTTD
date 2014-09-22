@@ -21,12 +21,12 @@ Vars <- c("Lskew","LCV","Lmad","Sskew","Skurt","q25","q50","q75","Mode","CV","Va
 #matplot(0:110, Fdx, type = 'l', lty = 1, col = "#00000005")
 #matplot(0:110, Fex, type = 'l', lty = 1, col = "#00000005")
 
-Fmatrices <- lapply(Vars, function(v, dat){
-            acast(dat[dat$Sex == "f", ], Age~Year+CNTRY, value.var = v)
-        },dat=HMD)
-Mmatrices <- lapply(Vars, function(v, dat){
-            acast(dat[dat$Sex == "m", ], Age~Year+CNTRY, value.var = v)
-        },dat=HMD)
+#Fmatrices <- lapply(Vars, function(v, dat){
+#            acast(dat[dat$Sex == "f", ], Age~Year+CNTRY, value.var = v)
+#        },dat=HMD)
+#Mmatrices <- lapply(Vars, function(v, dat){
+#            acast(dat[dat$Sex == "m", ], Age~Year+CNTRY, value.var = v)
+#        },dat=HMD)
 
 #matplot(0:100, Fmatrices[[1]][1:101,], type = 'l', lty = 1, col = "#00000005",main = "Females, Lskew(x)")
 #matplot(0:100, Fmatrices[[2]][1:101,], type = 'l', lty = 1, col = "#00000005",main = "Females, LCV(x)")
@@ -46,22 +46,22 @@ FSWE <- lapply(Vars, function(v, dat){
             acast(dat[dat$Sex == "f", ], Age~Year, value.var = v)
         },dat=HMD[ind,])
 names(FSWE) <- Vars
-plotVariable <- function(XXX, Var){
-    matplot(0:100, XXX[[Var]][1:101,], type = 'l', lty = 1,
-            main = paste0("Females, ",Var,"(x)"), col = gray(c(.2,.4,.6)),
-            lwd=c(1,2,3), xlab = "Age", ylab = Var)
-    vals        <- rowSums(XXX[[Var]][1:101,], na.rm = TRUE)
-    leftval     <- sum(vals[1:5],na.rm=TRUE)
-    rightval    <- sum(vals[96:101],na.rm=TRUE)
-    leftOrRight <- ifelse(leftval > rightval,"bottomleft","bottomright")
-    legend(leftOrRight,lty=1,col=gray(c(.2,.4,.6)),lwd=c(1,2,3),legend=c(1900,1950,2000), bty = "n") 
-}
-#plotVariable(FSWE,"q50")
-plotVariable(FSWE,"ex2")
-par(mfrow=c(1,2))
-plotVariable(FSWE,"LCV")
-plotVariable(FSWE,"CV")
-graphics.off()
+#plotVariable <- function(XXX, Var){
+#    matplot(0:100, XXX[[Var]][1:101,], type = 'l', lty = 1,
+#            main = paste0("Females, ",Var,"(x)"), col = gray(c(.2,.4,.6)),
+#            lwd=c(1,2,3), xlab = "Age", ylab = Var)
+#    vals        <- rowSums(XXX[[Var]][1:101,], na.rm = TRUE)
+#    leftval     <- sum(vals[1:5],na.rm=TRUE)
+#    rightval    <- sum(vals[96:101],na.rm=TRUE)
+#    leftOrRight <- ifelse(leftval > rightval,"bottomleft","bottomright")
+#    legend(leftOrRight,lty=1,col=gray(c(.2,.4,.6)),lwd=c(1,2,3),legend=c(1900,1950,2000), bty = "n") 
+#}
+##plotVariable(FSWE,"q50")
+#plotVariable(FSWE,"ex2")
+#par(mfrow=c(1,2))
+#plotVariable(FSWE,"LCV")
+#plotVariable(FSWE,"CV")
+#graphics.off()
 #
 
 #matplot(0:100, FSWE[["q50"]][1:101,]+0:100, type = 'l', lty = 1,
@@ -176,25 +176,25 @@ plot(0:105, FSWE[["Skurt"]][1:106,3], type = 'n', lty = 1,
   lwd=c(1,2,3), 
   xlab = "", 
   ylab = "",
-  ylim=c(1,10),
+  ylim=c(1-3,10-3),
   axes = FALSE,
   panel.first = list(
-    rect(0,1,105,10,border = NA,col=gray(.95)),
-    segments(0,seq(1,10,by=1),105,seq(1,10,by=1),col = "white",lwd=.5),
-    segments(seq(10,90,by=10),1,seq(10,90,by=10),10,col="white",lwd=.5),
-    text(0,seq(1,10,by=1),seq(1,10,by=1),cex=.7,pos=2),
-    text(seq(0,100,by=10),1,seq(0,100,by=10),cex=.7,pos=1)))
+    rect(0,1-3,105,10-3,border = NA,col=gray(.95)),
+    segments(0,seq(1,10,by=1)-3,105,seq(1,10,by=1)-3,col = "white",lwd=.5),
+    segments(seq(10,90,by=10),1-3,seq(10,90,by=10),10-3,col="white",lwd=.5),
+    text(0,seq(1,10,by=1)-3,seq(1,10,by=1)-3,cex=.7,pos=2),
+    text(seq(0,100,by=10),1-3,seq(0,100,by=10),cex=.7,pos=1)))
 lines(0:105, FSWE[["Skurt"]][1:106,3], col = cols[2])
 lines(0:105, FSWE[["Skurt"]][1:106,1], col = cols[4])
 lines(0:105, FSWE[["Skurt"]][1:106,2], col = cols[6])
-text(50,0, "a")
-text(-10,6, "Kurtosis",srt=90)
-text(40,4.3,"2000",col=cols[2],srt=-35,cex=.8)
-text(40,3.6,"1950",col=cols[6],srt=-35,cex=.8)
-text(30,3,"1900",col=cols[4],cex=.8)
+text(50,0-3, "a")
+text(-10,6-3, "Kurtosis",srt=90)
+text(40,4.3-3,"2000",col=cols[2],srt=-35,cex=.8)
+text(40,3.6-3,"1950",col=cols[6],srt=-35,cex=.8)
+text(30,3-3,"1900",col=cols[4],cex=.8)
 
-text(0,8,"Variance driven by very\npremature deaths",pos=4,cex=.8)
-text(105,6,"Variance driven by\nvery long survivors",pos=2,cex=.8)
+text(0,8-3,"Variance driven by very\npremature deaths",pos=4,cex=.8)
+text(105,6-3,"Variance driven by\nvery long survivors",pos=2,cex=.8)
 dev.off()
 # some kind of linear relationship between LCV and CV
 # from age 0 until 85 or so. Not sure if it's constant.
@@ -263,8 +263,9 @@ LexisMap(Sskew,log=FALSE,contour=TRUE,colramp=colramp,nbreaks=11,LexRef=FALSE)
 dev.off()
 
 pdf("Figures/Surf/KurtSWEf.pdf",height=5,width=11)
+#dev.new(height=5,width=11)
 par(mai=c(.5,.5,.2,1))
-LexisMap(Kurt,log=FALSE,contour=TRUE,colramp=colramp,nbreaks=13,LexRef=FALSE)
+LexisMap(Kurt,log=FALSE,contour=TRUE,colramp=colramp,nbreaks=11,LexRef=FALSE)
 dev.off()
 
 pdf("Figures/Surf/CVSWEf.pdf",height=5,width=11)
