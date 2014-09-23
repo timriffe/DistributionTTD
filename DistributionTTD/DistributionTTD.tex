@@ -59,19 +59,31 @@ when framed in terms of compression \citep[e.g.,][]{fries1980aging}, which is a
 distributional observation.
 Hazards are attractive because rates in a given
 age group can be imagined as independent from other ages. Research on
-the deaths distribution (or else its translation to a survival curve) has either
+the deaths distribution (or else its translation as a survival curve) has either
 been based on the entire age range
 \citep[e.g.,][]{wilmoth1999rectangularization, engelman2010implications}
 or else on left-censored distributions, in order to focus on senescent processes.  For instance, \citet{edwards2005inequality}
 and \citet{gillespie2014divergence} left-censor analyses at
-age 10 and 15, respectively, in order to observe the deaths distribution without the preponderance of infant mortality. One could in practice repeat such analyses after truncating on all ages in succession, thereby revealing an age pattern to the subject of interest
-(variation, inequality, and between-population divergence) in order to form a
-more complete picture.
+ages 10 and 15, respectively, in order to observe the deaths distribution
+without a preponderance of infant mortality. Another family of studies
+left-censors at variable ages, depending on the age-specific value of some
+function. For example, \citet{romo2009maximum} document historical trends in
+total maximum lifespan expectancy using in each instance the age that maximizes 
+conditional lifespan expectancy, $a + e(a)$ (this was not
+always $e(0)$). Left-censoring is also common practice in studies of old-age
+mortality.
+\citet{kannisto2001mode} suggested measuring old-age mortality dispersion by
+left-censoring at the modal age of death, and several researchers have followed
+suit \citep[e.g.,][among others]{Thatcher_22_17,Ouellette_25_19}. One could in
+practice repeat such analyses after left-censoring on each age in succession, thereby
+revealing an age pattern to the subject of interest (variation, inequality, and
+between-population divergence) in order to form a more complete picture over
+the lifecourse.
 
 All lifetable
 summary measures can be reworked as functions of conditional remaining lifetime
 (e.g., the modal remaining lifespan) to become functions of age.
-In this paper, we aim to provide some elementary definitions of age-conditioned
+In this paper, we provide some elementary definitions of age-conditioned
 distribution functions, including variance, skewness and kurtosis, and we apply
 these to human populations from the Human Mortality Database \citepalias{HMD}.
 As an example of the utility of this perspective we suggest a selection of
@@ -314,26 +326,38 @@ Period mortality (HMD).}
 \end{figure}
 \FloatBarrier
 
-Data and code used to produce these results will be made available, and an appendix of results for other HMD populations will
-also be made available online.
+Data and code used to produce these results will be made available, and an
+appendix of results for other HMD populations and both sexes will also be made
+available.
 
 \section*{Heuristics}
+(section in progress)
 
-However, distributional aspects of mortality may play a decisive role in designing lifespan-related policies and interventions. By lifespan-related, we refer both to policies that affect and are affected by lifespan. For instance, \citet{edwards2013cost} derives an approach to estimating or conceiving of cost to variance in human lifespan. This work was based on the lifetable deaths distribution as a whole, but we pose the question that perhaps a) there are costs implicit in other moments and b) these costs may
-vary over age, such that optimal choices are age dependant, and the age pattern
-of optimal behavior may change over the time partly driven by mortality. 
+Distributional aspects of age-conditioned mortality may play a decisive role
+in designing lifespan-related policies, interventions, hedges, and investments.
+By lifespan-related, we refer both to policies that affect and are affected by
+lifespan. For instance, \citet{edwards2013cost} derives an abstract approach to
+estimate or conceive of a cost to variance in human lifespan. This work was
+based on the lifetable deaths distribution as a whole, but we pose the question
+that perhaps a) there are costs and opportunities implicit in other moments and
+b) these costs may vary depending on the age of the beholder, and may not be implicit and
+homogenous over all ages. Choices, such as the decision to
+preemptively move into a care residence, are age dependant, and the age pattern
+of optimal behavior may hinge on mortality projected in ages higher than $a$.
 
 The empirical distribution
-of $f(y|a)$ bears heavily on many late-life
-decisions, such as bequesting or moving into a care residence, and possibly also
-on the ethical pondering of lifespan-relevant public policies. As an
-example, we imagine that age-specific lifespan distributional properties may inform judgments on retirement policy. To equalize the duration of retirement between individuals is at
-first glance a step toward equality, but there is no necessary or best way to
-determine this duration, and there is also no necessary way to adjust this duration as a function of lifespan itself. In other words, if the desired duration of retirement is 20 years, perhaps the meaning of 20 years is greater for an individual with a shorter lifespan and lesser for a longer total lifespan. Whether the goal is to
-equalize the duration of retirement, the proportion of life in retirement, or
-some other way of partitioning lifelines into lifecourse stages, distributional
-aspects of lifespans hold promise as an element in formulating analytic
-guidelines.
+of $f(y|a)$ bears heavily on the consequences of many late-life
+decisions (in the aggregate), and so should help shape individual planning.
+Application domains include purchaser evaluations of life insurace, the decision to bequest, or the decision to pre-emptively move into a care
+residence. While the sustainability of pension and retirement plans is
+mostly a function of mean remaining lifetime, their equality with respect to
+post-labor lifespan depends on $f(y|a)$ for the general population and for
+subpopulations. To equalize the duration of retirement between
+individuals is at first glance a step toward equality, but there is no necessary or best
+way to determine this duration, and there is also no necessary way to adjust
+this duration as a function of lifespan itself. In other words, if the desired
+duration of retirement is 20 years, perhaps the meaning of 20 years is greater for an individual with a shorter lifespan and lesser for a longer total lifespan. Whether the goal is to equalize the duration of retirement, the proportion of life in retirement, or some other way of partitioning lifelines into lifecourse stages, distributional aspects of lifespans hold promise as an element in formulating analytic guidelines. Distributional differences between population subgroups vary greatly, as we demonstrate for sex differences. Sex differences and differences between other population subgroups may form the basis for research on group differences in
+the lifespan distribution. 
 
 
 \bibliographystyle{plainnat}
