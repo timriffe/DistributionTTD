@@ -23,11 +23,10 @@
 
 \author[1]{Tim Riffe\thanks{triffe@demog.berkeley.edu}}
 \author[2,3]{Adam Lenart}
-\author[2,3]{Vladimir Canudas Romo}
+\author[2,3]{Vladimir Canudas-Romo}
 \affil[1]{Department of Demography, University of California, Berkeley}
 \affil[2]{University of Southern Denmark}
 \affil[3]{Max Planck Odense Center}
-
 
 \maketitle
 
@@ -39,7 +38,6 @@ distribution, and apply these to human populations.
 We suggest a selection of applications and some heuristics for late life
 decisions based on these distributional measures.
 \end{abstract}
-
 
 \section*{Background}
 
@@ -61,31 +59,34 @@ Hazards are attractive because rates in a given
 age group can be imagined as independent from other ages. Research on
 the deaths distribution (or else its translation as a survival curve) has either
 been based on the entire age range
-\citep[e.g.,][]{wilmoth1999rectangularization, engelman2010implications}
-or else on left-censored distributions, in order to focus on senescent processes.  For instance, \citet{edwards2005inequality}
-and \citet{gillespie2014divergence} left-censor analyses at
+\citep[e.g.,][]{wilmoth1999rectangularization}
+or else on left-truncated distributions, in order to focus on senescent
+processes.
+For instance, \citet{edwards2005inequality} and \citet{gillespie2014divergence} left-truncate analyses at
 ages 10 and 15, respectively, in order to observe the deaths distribution
 without a preponderance of infant mortality. Another family of studies
-left-censors at variable ages, depending on the age-specific value of some
+left-truncates at variable ages, depending on the age-specific value of some
 function. For example, \citet{romo2009maximum} document historical trends in
 total maximum lifespan expectancy using in each instance the age that maximizes 
 conditional lifespan expectancy, $a + e(a)$ (this was not
-always $e(0)$). Left-censoring is also common practice in studies of old-age
+always $e(0)$). Left-truncation is also common practice in studies of old-age
 mortality.
 \citet{kannisto2001mode} suggested measuring old-age mortality dispersion by
-left-censoring at the modal age of death, and several researchers have followed
-suit \citep[e.g.,][among others]{Thatcher_22_17,Ouellette_25_19}. One could in
-practice repeat such analyses after left-censoring on each age in succession, thereby
-revealing an age pattern to the subject of interest (variation, inequality, and
+left-truncating at the modal age of death, and several researchers have followed
+suit \citep[e.g.,][among others]{Thatcher_22_17,Ouellette_25_19}. One can in
+practice repeat such analyses after left-truncating on each age in
+succession, thereby revealing an age pattern to the subject of interest (variation, inequality, and
 between-population divergence) in order to form a more complete picture over
-the lifecourse.
+the lifecourse. We refer to this technique as age-conditioning.
+\citet{engelman2010implications}, for instance, condition on age to derive an
+age pattern to the standard deviation of remaining lifespan.
 
 All lifetable
 summary measures can be reworked as functions of conditional remaining lifetime
 (e.g., the modal remaining lifespan) to become functions of age.
 In this paper, we provide some elementary definitions of age-conditioned
 distribution functions, including variance, skewness and kurtosis, and we apply
-these to human populations from the Human Mortality Database \citepalias{HMD}.
+these to populations from the Human Mortality Database \citepalias{HMD}.
 As an example of the utility of this perspective we suggest a selection of
 simple heuristics for late life decisions based on these distributional measures.
 
