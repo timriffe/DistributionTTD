@@ -4,7 +4,7 @@
 \usepackage{placeins}
 \usepackage{graphicx}
 \usepackage{subcaption}
-\usepackage{tikz}
+\usepackage{setspace}
 %\usepackage[active,tightpage]{preview}
 \usepackage{natbib}
 \bibpunct{(}{)}{,}{a}{}{;} 
@@ -31,25 +31,28 @@
 \maketitle
 
 \begin{abstract}
-All lifetable summary measures can be reworked as functions of conditional
-remaining lifetime to become functions of age. In this paper, we provide
-some elementary definitions of functions describing the conditional lifespan
-distribution, and apply these to human populations.
-We suggest a selection of applications and some heuristics for late life
-decisions based on these distributional measures.
+All lifetable summary indices are functions of age, but these are usually
+only calculated for age zero, or sometimes the age at maturity, retirement or
+some other particular age. We propose to let lifetable summary measures be
+calculated at any age. In this manuscript, we provide some elementary definitions of functions describing the
+conditional lifespan distribution, and apply these to human populations.
+We suggest a selection of applications for late life
+decisions, such as the decision to bequest or move into a care residence, based
+on these distributional measures.
 \end{abstract}
 
+ \linespread{1.3}
 \section*{Background}
 
-Typically demographers are satisfied to summarize the remaining lifetime for age
-groups using a mean, $e(a)$, which is however not an omnibus descriptor of time
-to death. There are other useful measures of longevity, such as
-the modal or median ages at death, and demographers also have a battery of
+Typically demographers are satisfied to summarize the distribution of remaining
+lifetimes for age groups using only its mean, $e(a)$. However, remaining life
+expectancy is not an omnibus descriptor of time to death. There are other
+useful measures of longevity, such as the modal or median ages at death, and demographers also have a battery of
 indicators for lifespan variability or entropy. One aspect in common for many
 such indicators is that they refer to the age distribution of mortality in a snapshot of a stationary population or else the age at death distribution of a newborn cohort under constant mortality
 conditions. These measures are not typically made conditional on survival to
 later ages, i.e., demographers too seldom consider the properties of the
-distribution of remaining lifetimes as a function of age itself. 
+distribution of remaining lifetimes. 
 
 It is our impression that mortality transitions have most
 often been described in terms of changes in the mortality hazard curve, except
@@ -60,8 +63,8 @@ age group can be imagined as independent from other ages. Research on
 the deaths distribution (or else its translation as a survival curve) has either
 been based on the entire age range
 \citep[e.g.,][]{wilmoth1999rectangularization}
-or else on left-truncated distributions, in order to focus on senescent
-processes.
+or else on left-truncated distributions on a few selected ages, in order to
+focus on senescent processes.
 For instance, \citet{edwards2005inequality} and \citet{gillespie2014divergence} left-truncate analyses at
 ages 10 and 15, respectively, in order to observe the deaths distribution
 without a preponderance of infant mortality. Another family of studies
@@ -92,12 +95,12 @@ simple heuristics for late life decisions based on these distributional measures
 
 \section*{Definitions}
 
-Remaining life expectancy conditional on survial to age $a$ is defined as
+Remaining life expectancy conditional on survival to age $a$ is defined as
 \begin{equation}
-e(a) = \frac{\int_0^\infty l(a+y) \dd y}{l(a)} \tp
+e(a) = \frac{1}{l(a)}\int_0^\infty l(a+y) \dd y \tp
 \end{equation}
 
-Say lifespans for a given birth cohort are measured with the random variable,
+Let lifespans for a given birth cohort be measured with the random variable,
 $X$, with distribution $d(X)$, which is identical to the $d_x$
 column of the lifetable if a radix of 1 is used. In other words, the
 distribution of lifespans for newborns is identical to the distribution of
@@ -107,7 +110,7 @@ $f(y|a)$, where $a$ is age attained and $y$ is remaining years of life, and
 which is defined as:
 \begin{equation}
 \label{eq:fya}
-f(y|a) = \mu(a+y) \frac{l(a+y)}{l(a)} \tc
+f(y|a) = \frac{1}{l(a)} \mu(a+y) l(a+y) \tc
 \end{equation}
 i.e., the probability of surviving to and dying at age $a+y$ given survival to
 age $a$. \eqref{eq:fya} can also be used to calculate remaining life expectancy:
@@ -119,9 +122,8 @@ Demographers make less frequent
 reference to $f(y|a)$, which is however useful for decomposing
 demographic counts into remaining lifetime classes. The conditional distribution of remaining lifetimes can be
 described empirically using quantiles, or other central measures such as the
-median or the mode, or perhaps more parsimoniously using standardized moments.
-
-The $n^{th}$ standardized moment about the conditional mean of $f(y|a)$,
+median or the mode, or perhaps more parsimoniously using its moments.
+The $n^{th}$ central moment about the conditional mean of $f(y|a)$,
 $\eta_n(y|a)$ is defined as:
 \begin{align}
 \eta _n(y|a) =& \frac{1}{l(a)} \int_{y=0}^\infty (y-e(a))^n \mu (a+y) l(a+y) \dd
@@ -138,7 +140,7 @@ defined as
 \label{eq:skew}
 Skew(y|a) = \frac{\eta _3(y|a)}{\sigma(y|a)^3} \tc
 \end{equation}
-the third standardized moment. The conditional
+the third standardized moment. The conditional excess
 kurtosis of $f(y|a)$, $Kurt(y|a)$, can be defined as
 \begin{equation}
 \label{eq:kurt}
@@ -331,11 +333,9 @@ Data and code used to produce these results will be made available, and an
 appendix of results for other HMD populations and both sexes will also be made
 available.
 
-\section*{Heuristics}
-(section in progress)
-
-Distributional aspects of age-conditioned mortality may play a decisive role
-in designing lifespan-related policies, interventions, hedges, and investments.
+\section*{Applications}
+(section in progress) Distributional aspects of age-conditioned mortality may
+play a decisive role in designing lifespan-related policies, interventions, hedges, and investments.
 By lifespan-related, we refer both to policies that affect and are affected by
 lifespan. For instance, \citet{edwards2013cost} derives an abstract approach to
 estimate or conceive of a cost to variance in human lifespan. This work was
@@ -361,7 +361,7 @@ duration of retirement is 20 years, perhaps the meaning of 20 years is greater f
 the lifespan distribution. 
 
 
-\bibliographystyle{plainnat}
+\bibliographystyle{demography}
   \bibliography{references}   % Use the BibTeX file ``References.bib''.
 
 \end{document}
