@@ -5,7 +5,7 @@ if (system("hostname",intern=TRUE)=="triffe-N80Vm"){
   setwd("/home/tim/git/DistributionTTD/DistributionTTD")
 } else {
   # in that case I'm on Berkeley system, and other people in the dept can run this too
-  setwd(paste0("/hdir/0/",system("whoami",intern=TRUE),"/git/DistributionTTD/DistributionTTD"))
+  setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/DistributionTTD/DistributionTTD"))
 }
 library(data.table)
 library(reshape2)
