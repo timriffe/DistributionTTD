@@ -14,7 +14,7 @@ library(devtools)
 #install_github("DistributionTTD", 
 #        subdir = "DistributionTTD/R/DistributionTTD", username = "timriffe")
 #library(DistributionTTD)
-load_all("/data/commons/triffe/git/DistributionTTD/DistributionTTD/R/DistributionTTD")
+load_all("R/DistributionTTD")
 # what functions do we have?
 ls("package:DistributionTTD")
 # silly utilities: "Minf0", "MinfNA", "Mna0"
