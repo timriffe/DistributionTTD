@@ -2,7 +2,7 @@
 # should only run once at beginning and again once at end 
 # (for final data version in paper, to be saved with metadata)
 # for Tim, this will choke
-if (system("hostname",intern=TRUE)=="triffe-N80Vm"){
+if (system("hostname",intern=TRUE) %in% c("triffe-N80Vm", "tim-ThinkPad-L440")){
   # if I'm on the laptop
   setwd("/home/tim/git/DistributionTTD/DistributionTTD")
 } else {
@@ -21,6 +21,7 @@ Countries <- getHMDcountries() # returns vector of HMD country codes
 # makes long data frame of HMD lifetables, takes several minutes to run
 LT <- do.call(rbind,lapply(Countries, function(XYZ, us, pw){
                     # downloads just like yours, but fixes some column classes.
+					cat(XYZ,"\n")
                     LTM      <- readHMDweb(XYZ, "mltper_1x1", username = us, password = pw)   
                     LTF      <- readHMDweb(XYZ, "fltper_1x1", username = us, password = pw) 
                     LTM$Sex  <- "m"

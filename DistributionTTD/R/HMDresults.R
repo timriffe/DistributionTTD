@@ -1,6 +1,6 @@
 # Hi Adam, here is your script back, just the 'b' functions,
 # no 'section' function. Now age-conditioned. See further comments below
-if (system("hostname",intern=TRUE)=="triffe-N80Vm"){
+if (system("hostname",intern=TRUE) %in% c("triffe-N80Vm", "tim-ThinkPad-L440")){
   # if I'm on the laptop
   setwd("/home/tim/git/DistributionTTD/DistributionTTD")
 } else {
@@ -14,7 +14,7 @@ library(devtools)
 #install_github("DistributionTTD", 
 #        subdir = "DistributionTTD/R/DistributionTTD", username = "timriffe")
 #library(DistributionTTD)
-load_all("/data/commons/triffe/git/DistributionTTD/DistributionTTD/R/DistributionTTD")
+load_all("R/DistributionTTD")
 # what functions do we have?
 ls("package:DistributionTTD")
 # silly utilities: "Minf0", "MinfNA", "Mna0"
