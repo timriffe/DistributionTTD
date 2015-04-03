@@ -44,14 +44,14 @@ on these distributional measures.
  \linespread{1.3}
 \section*{Background}
 
-Typically demographers are satisfied to summarize the distribution of remaining
-lifetimes for age groups using only its mean, $e(a)$. However, remaining life
+Typically demographers summarize the distribution of remaining
+lifetimes for age groups using its mean, $e(a)$. However, remaining life
 expectancy is not an omnibus descriptor of time to death. There are other
 useful measures of longevity, such as the modal or median ages at death, and demographers also have a battery of
 indicators for lifespan variability or entropy. One aspect in common for many
 such indicators is that they refer to the age distribution of mortality in a snapshot of a stationary population or else the age at death distribution of a newborn cohort under constant mortality
 conditions. These measures are not typically made conditional on survival to
-later ages, i.e., demographers too seldom consider the properties of the
+later ages, i.e., demographers seldom consider the properties of the
 distribution of remaining lifetimes. 
 
 It is our impression that mortality transitions have most
@@ -120,9 +120,8 @@ e(a) = \int _{y=0}^\infty y f(y|a) \dd y \tp
 
 Demographers make less frequent
 reference to $f(y|a)$, which is however useful for decomposing
-demographic counts into remaining lifetime classes. The conditional distribution of remaining lifetimes can be
-described empirically using quantiles, or other central measures such as the
-median or the mode, or perhaps more parsimoniously using its moments.
+demographic counts into remaining lifetime classes. 
+The conditional distribution of remaining lifetimes can be described empirically using quantiles, or other central measures such as the median or the mode, or perhaps more parsimoniously using its moments.
 The $n^{th}$ central moment about the conditional mean of $f(y|a)$,
 $\eta_n(y|a)$ is defined as:
 \begin{align}
@@ -154,7 +153,9 @@ CV(y|a) = \frac{\sigma(y|a)}{e(a)} \tp
 \end{equation}
 $CV(y|a)$ is dimensionless and comparable over age, and its reciprocal
 can be thought of as a signal to noise ratio of one's likely remaining lifespan,
-assuming a constant mortality pattern in ages higher than $a$.
+assuming a constant mortality pattern in ages higher than $a$. Other conditional
+measures may also be devised in similar fashion, the most obvious and useful of
+which are quantiles, which we also calculate in the following empirical section.
 
 %L-moments\citep{hosking1990moments} may also be calculated for the the
 % lifetable conditional distribution of remaining lifetimes. These measures yield qualitatively similar reslts, but
