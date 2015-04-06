@@ -17,6 +17,12 @@
 \newcommand{\tp}{\quad\quad\text{.}}
 \defcitealias{HMD}{HMD}
 
+\newcommand\ackn[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
 \begin{document}
 
 \title{Distributional aspects of time to death in human populations}
@@ -38,7 +44,11 @@ calculated at any age. In this manuscript, we provide some elementary definition
 conditional lifespan distribution, and apply these to human populations.
 We suggest a selection of applications for late life
 decisions, such as the decision to bequest or move into a care residence, based
-on these distributional measures.
+on these distributional measures.\ackn{Research reported in this manuscript
+was supported by the U.S.
+National Institute On Aging of the National Institutes of Health under award
+numbers R01-AG011552 and R01-AG040245. The content is solely the responsibility of the authors and does not necessarily represent the official views of the funding
+agency.}
 \end{abstract}
 
  \linespread{1.3}
@@ -52,7 +62,7 @@ indicators for lifespan variability or entropy. One aspect in common for many
 such indicators is that they refer to the age distribution of mortality in a snapshot of a stationary population or else the age at death distribution of a newborn cohort under constant mortality
 conditions. These measures are not typically made conditional on survival to
 later ages, i.e., demographers seldom consider the properties of the
-distribution of remaining lifetimes. 
+age-conditioned distribution of remaining lifetimes. 
 
 It is our impression that mortality transitions have most
 often been described in terms of changes in the mortality hazard curve, except
@@ -131,8 +141,9 @@ y
 \eta _n(y|a) =&  \int_{y=0}^\infty (y-e(a))^n f(y|a) \dd y \tc
 \end{align}
 where $\eta_2(y|a)$ gives the variance of remaining lifespan about $e(a)$,
-$\sigma^2(y|a)$. Survival-conditioned variance is useful
-information, but it can be deceptive to display graphically, since lifespan variation is not usually symmetric around $e(a)$. The conditional skewness function, $Skew(y|a)$ is not a perfect measure of symmetry in $f(y|a)$, but it
+$\sigma^2(y|a)$.\footnote{Compare with \citet{chiang1984life}, Chapter 10,
+Equation 6.10, where the author denotes $f(y|a)$ with $Y_\alpha$.}
+Survival-conditioned variance is useful information, but it can be deceptive to display graphically, since lifespan variation is not usually symmetric around $e(a)$. The conditional skewness function, $Skew(y|a)$ is not a perfect measure of symmetry in $f(y|a)$, but it
 captures most such variation and can be roughly interpreted in this way. It is
 defined as
 \begin{equation}
