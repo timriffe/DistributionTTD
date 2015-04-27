@@ -227,10 +227,9 @@ lines(0:105, FSWE[["CV"]][1:106,3], col = cols[2])
 lines(0:105, FSWE[["CV"]][1:106,1], col = cols[4])
 lines(0:105, FSWE[["CV"]][1:106,2], col = cols[6])
 text(50,0, "a")
-text(-10,6, "Kurtosis",srt=90)
-text(40,4.3,"2000",col=cols[2],srt=-35,cex=.8)
-text(40,3.6,"1950",col=cols[6],srt=-35,cex=.8)
-text(30,3,"1900",col=cols[4],cex=.8)
+#text(40,4.3,"2000",col=cols[2],srt=-35,cex=.8)
+#text(40,3.6,"1950",col=cols[6],srt=-35,cex=.8)
+#text(30,3,"1900",col=cols[4],cex=.8)
 
 #text(0,8,"Variance driven by very\npremature deaths",pos=4,cex=.8)
 #text(105,6,"Variance driven by\nvery long survivors",pos=2,cex=.8)
@@ -282,49 +281,3 @@ dev.off()
 #levelplot(X,contour=TRUE,asp=1,panel = panel.levelplot.raster)
 #dev.off()
 #getwd()
-
-set.seed(1)
-X <- matrix(runif(100*200),nrow=100)
-X <- apply(X,1,sort)
-lattice::levelplot(X,contour=TRUE)
-
-install.packages("raster")
-library(raster)
-r <- raster(X)
-z <- cut(r, seq(0, 1, 0.1))
-p <- rasterToPolygons(z, dissolve=TRUE)
-spplot(p)
-plot(p)
-class(p)
-
-MatrixLevels <- function(X,nbreaks){
-	zlim <- range(pretty(X))
-	X[X < zlim[1]]        <- zlim[1]
-	X[X > zlim[2]]        <- zlim[2]
-	ticklabs    <- ticks       <- pretty(X, 10) # still only gives a rough number
-	approx(zlim, n = nbreaks)$y
-}
-nbreaks <- 11
-Matrix2Poly <- function(X,nbreaks){
-	require(raster)
-	breaks <- MatrixLevels(X,nbreaks)
-	Ages <- as.integer(rownames(ex))
-	Years <- as.integer(colnames(ex))
-	r <- raster(X[nrow(X):1,],
-			xmn = min(Years), xmx = max(Years)+1, 
-			ymn = min(Ages), ymx = max(Ages)+1)
-	z <- cut(r, breaks)
-	p <- rasterToPolygons(z, dissolve=TRUE)
-	Lines <- contourLines(Years,Ages,t(ex),levels=breaks)
-	list(p=p,contours = Lines)
-}
-
-
-exp <- Matrix2Poly(ex,11)
-plot(exp$p,asp=1,border=NA,col=colramp(10))
-lapply(exp$contour,lines)
-rect()
-
-dev.new()
-par(mai=c(.5,.5,.2,1))
-LexisMap(ex,log=FALSE,contour=TRUE,colramp=colramp,nbreaks=11,LexRef=FALSE,useRaster=TRUE)
