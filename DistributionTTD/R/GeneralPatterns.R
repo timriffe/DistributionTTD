@@ -1,12 +1,22 @@
 
 # this script uses the HMDresults object to search for common patterns to the various defined measures.
 if (system("hostname",intern=TRUE) %in% c("triffe-N80Vm", "tim-ThinkPad-L440")){
-  # if I'm on the laptop
-  setwd("/home/tim/git/DistributionTTD/DistributionTTD")
+	# if I'm on the laptop
+	setwd("/home/tim/git/DistributionTTD/DistributionTTD")
 } else {
-  # in that case I'm on Berkeley system, and other people in the dept can run this too
-  setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/DistributionTTD/DistributionTTD"))
+	if (system("hostname",intern=TRUE) == "PC-403478"){
+		# on MPIDR PC
+		setwd("U://git//DistributionTTD//DistributionTTD")
+	} else {
+		# in that case I'm on Berkeley system, and other people in the dept can run this too
+		setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/DistributionTTD/DistributionTTD"))
+	}
 }
+getwd()
+
+#devtools::install_github("timriffe/LexisUtils/LexisUtils")
+
+
 library(data.table)
 library(reshape2)
 library(LexisUtils)

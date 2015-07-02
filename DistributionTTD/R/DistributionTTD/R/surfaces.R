@@ -73,23 +73,23 @@ LexisPoly <- function(X,nbreaks){
 
 # figure out how to rev colors via arg
 
-
-pdf("Figures/Surf/exSWEfposter.pdf",height=5,width=11)
-LexisPoly(ex,11)
-dev.off()
-
-pdf("Figures/Surf/SDSWEfposter.pdf",height=5,width=11)
-LexisPoly(sqrt(Var),15)
-dev.off()
-
-pdf("Figures/Surf/SskewSWEfposter.pdf",height=5,width=11)
-LexisPoly(Sskew,11)
-dev.off()
-
-pdf("Figures/Surf/KurtSWEfposter.pdf",height=5,width=11)
-LexisPoly(Kurt,11)
-dev.off()
-
-pdf("Figures/Surf/CVSWEfposter.pdf",height=5,width=11)
-LexisPoly(CV,15)
-dev.off()
+#
+#pdf("Figures/Surf/exSWEfposter.pdf",height=5,width=11)
+#LexisPoly(ex,11)
+#dev.off()
+#
+#pdf("Figures/Surf/SDSWEfposter.pdf",height=5,width=11)
+#LexisPoly(sqrt(Var),15)
+#dev.off()
+#
+#pdf("Figures/Surf/SskewSWEfposter.pdf",height=5,width=11)
+#LexisPoly(Sskew,11)
+#dev.off()
+#
+#pdf("Figures/Surf/KurtSWEfposter.pdf",height=5,width=11)
+#LexisPoly(Kurt,11)
+#dev.off()
+#
+#pdf("Figures/Surf/CVSWEfposter.pdf",height=5,width=11)
+#LexisPoly(CV,15)
+#dev.off()
