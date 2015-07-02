@@ -21,6 +21,7 @@ library(data.table)
 library(reshape2)
 library(LexisUtils)
 library(RColorBrewer)
+devtools::load_all(file.path("R","DistributionTTD"))
 HMD <- local(get(load("Data/HMDresults.Rdata")))
 
 
@@ -255,7 +256,8 @@ CV    <- acast(HMD[HMD$CNTRY == "SWE" & Sex == "f", ],Age~Year, value.var = "CV"
 #display.brewer.all()
 colramp <- colorRampPalette(brewer.pal(9, "BuGn"), space = "Lab")
 
-
+###############
+# some of these need cold-hot ramps instead: those with both positive and negative values
 pdf("Figures/Surf/exSWEf.pdf",height=5,width=11)
 par(mai=c(.5,.5,.2,1))
 LexisMap(ex,log=FALSE,contour=TRUE,colramp=colramp,nbreaks=11,LexRef=FALSE,useRaster=TRUE)
@@ -291,3 +293,26 @@ dev.off()
 #levelplot(X,contour=TRUE,asp=1,panel = panel.levelplot.raster)
 #dev.off()
 #getwd()
+
+
+
+#
+pdf("Figures/Surf/exSWEfposter.pdf",height=5,width=11)
+LexisPoly(ex,11)
+dev.off()
+#
+pdf("Figures/Surf/SDSWEfposter.pdf",height=5,width=11)
+LexisPoly(sqrt(Var),15)
+dev.off()
+#
+pdf("Figures/Surf/SskewSWEfposter.pdf",height=5,width=11)
+LexisPoly(Sskew,11)
+dev.off()
+#
+pdf("Figures/Surf/KurtSWEfposter.pdf",height=5,width=11)
+LexisPoly(Kurt,11)
+dev.off()
+#
+pdf("Figures/Surf/CVSWEfposter.pdf",height=5,width=11)
+LexisPoly(CV,15)
+dev.off()
