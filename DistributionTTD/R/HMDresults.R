@@ -1,18 +1,13 @@
-
-# this script uses the HMDresults object to search for common patterns to the various defined measures.
+# Hi Adam, here is your script back, just the 'b' functions,
+# no 'section' function. Now age-conditioned. See further comments below
 if (system("hostname",intern=TRUE) %in% c("triffe-N80Vm", "tim-ThinkPad-L440")){
-	# if I'm on the laptop
-	setwd("/home/tim/git/DistributionTTD/DistributionTTD")
+  # if I'm on the laptop
+  setwd("/home/tim/git/DistributionTTD/DistributionTTD")
 } else {
-	if (system("hostname",intern=TRUE) == "PC-403478"){
-		# on MPIDR PC
-		setwd("U://git//DistributionTTD//DistributionTTD")
-	} else {
-		# in that case I'm on Berkeley system, and other people in the dept can run this too
-		setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/DistributionTTD/DistributionTTD"))
-	}
+  # in that case I'm on Berkeley system, and other people in the dept can run this too
+  setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/DistributionTTD/DistributionTTD"))
 }
-getwd()
+
 # -----------------------------------------------------------------
 # install from github /or/ do devtools::load_all("R/DistributionTTD", TRUE)
 library(devtools)
@@ -58,64 +53,3 @@ save(LT, file = "Data/HMDresults.Rdata")
 #head(LT)
 #str(LT)
 print(object.size(LT),units="Mb") # 173.1 Mb
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
