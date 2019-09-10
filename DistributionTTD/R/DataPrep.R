@@ -1,18 +1,12 @@
 # compiles long-format all-cause complete lifetables from HMD.
 # should only run once at beginning and again once at end 
-# (for final data version in paper, to be saved with metadata)
-# for Tim, this will choke
-if (system("hostname",intern=TRUE) %in% c("triffe-N80Vm", "tim-ThinkPad-L440")){
-  # if I'm on the laptop
-  setwd("/home/tim/git/DistributionTTD/DistributionTTD")
-} else {
-  # in that case I'm on Berkeley system, and other people in the dept can run this too
-  setwd(paste0("/data/commons/",system("whoami",intern=TRUE),"/git/DistributionTTD/DistributionTTD"))
-}
 
+# Modified 28-09-2019, toolkit change, need data for other projects
 #library(devtools)
 #install_github("DemogBerkeley", subdir = "DemogBerkeley", username = "UCBdemography")
-library(DemogBerkeley)
+# library(DemogBerkeley)
+library(here)
+library(HMDHFDplus)
 library(data.table)
 Countries <- getHMDcountries() # returns vector of HMD country codes
 
@@ -40,7 +34,7 @@ LT   <- data.table(LT)
 # Re-Run this script for the final version to regenerate clean results on latest data.
 attr(LT,"timestamp") <- Sys.Date()
 # save out for repeated use
-save(LT, file = "Data/HMDltper.Rdata")
+save(LT, file = here("Data","HMDltper.Rdata"))
 
 
 ############################################################################
