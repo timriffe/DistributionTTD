@@ -1,15 +1,9 @@
-parent.path <- "/home/tim/git/DistributionTTD/DistributionTTD/R"     # for laptop
+library(here)
 #parent.path <- ""
 # Code to update documentation, quick builds for non-github sharing. Github package installation testing.
-system(paste0("cd ", parent.path, " \n git checkout master \ncommit -a -m 'full commit'"))
 # devtools::install_github("devtools")
 library(devtools)
-#install_github("timriffe/TimUtils", subdir = "TimUtils")
-library(TimUtils)
-#install.packages("roxygen2")
-#load_all(file.path(parent.path ,"DemogBerkeley"))
-document(file.path(parent.path ,"DistributionTTD"))
 
-IncrementVersion(file.path(parent.path ,"DistributionTTD"),"01","2014-07-29")
+document(here("DistributionTTD","R","DistributionTTD"))
 
 
